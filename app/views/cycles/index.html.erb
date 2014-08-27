@@ -1,0 +1,9 @@
+<p>
+  <strong>User:</strong>
+  <%= @user.first_name %>
+  <%= @user.last_name %>
+</p>
+
+<h2>Cycles</h2>
+<%= render @user.cycles %>
+<%= link_to 'View User', user_path(@user) %>

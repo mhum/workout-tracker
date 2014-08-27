@@ -1,0 +1,4 @@
+<h2>Cycle</h2>
+<%= render partial: 'cycles/cycleAndWorkout', object: @cycle, as: 'cycle' %>
+
+<%= link_to 'View All', user_cycles_path(@cycle.user) %>
