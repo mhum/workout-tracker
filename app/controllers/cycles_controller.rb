@@ -16,7 +16,8 @@ class CyclesController < ApplicationController
   end
   
   def show
-    @cycle= Cycle.find(params[:id])
+    @cycle = Cycle.find(params[:id])
+    @user = @cycle.user
   end
   
   def destroy

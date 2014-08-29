@@ -1,98 +1,121 @@
-<p>
-  <strong>Title:</strong>
-  <%= workout.title %> 
-
-  <%= link_to 'View', user_cycle_workout_path(workout.cycle.user, workout.cycle, workout) %>
-  <%= link_to 'Edit', edit_user_cycle_workout_path(workout.cycle.user, workout.cycle, workout) %>
-  <br />
-  1 Rep Max: <%= workout.repmax%><br>
-  Working Max: <%= workout.working_max%> 
-  <p>  			
-  	<table >
-  		<tr>
-  			<td>Week 1</td>
-  			<td><%= calculate_weight(workout.working_max, 0.40) %> </td>
-  			<td><%= calculate_weight(workout.working_max, 0.50) %> </td>
-  			<td><%= calculate_weight(workout.working_max, 0.60) %> </td>		
-  			<td><%= calculate_weight(workout.working_max, 0.65) %> </td>	
-  			<td>x5</td>
-  			<td><%= calculate_weight(workout.working_max, 0.75) %> </td>	
-  			<td>x5</td>
-  			<td><%= calculate_weight(workout.working_max, 0.85) %> </td>	
-  			<td>x5</td>	
-		</tr>
-		<tr>
-  			<td></td>
-			<td><%= each_weight(workout.working_max, 0.40) %> </td>
-  			<td><%= each_weight(workout.working_max, 0.50) %> </td>
-  			<td><%= each_weight(workout.working_max, 0.60) %> </td>		
-  			<td><%= each_weight(workout.working_max, 0.65) %> </td>	
-  			<td></td>
-  			<td><%= each_weight(workout.working_max, 0.75) %> </td>	
-  			<td></td>
-  			<td><%= each_weight(workout.working_max, 0.85) %> </td>	
-  			<td></td>	
-		</tr>
-  		<tr>
-  			<td>Week 2</td>
-  			<td><%= calculate_weight(workout.working_max, 0.45) %> </td>
-  			<td><%= calculate_weight(workout.working_max, 0.55) %> </td>
-  			<td><%= calculate_weight(workout.working_max, 0.65) %> </td>	
-  			<td><%= calculate_weight(workout.working_max, 0.70) %> </td>
-  			<td>x3</td>
-  			<td><%= calculate_weight(workout.working_max, 0.80) %> </td>
-  			<td>x3</td>
-  			<td><%= calculate_weight(workout.working_max, 0.90) %> </td>	
-  			<td>x3</td>	
-		</tr>
-		<tr>
-  			<td></td>
-			<td><%= each_weight(workout.working_max, 0.45) %> </td>
-  			<td><%= each_weight(workout.working_max, 0.55) %> </td>
-  			<td><%= each_weight(workout.working_max, 0.65) %> </td>		
-  			<td><%= each_weight(workout.working_max, 0.70) %> </td>	
-  			<td></td>
-  			<td><%= each_weight(workout.working_max, 0.80) %> </td>	
-  			<td></td>
-  			<td><%= each_weight(workout.working_max, 0.90) %> </td>	
-  			<td></td>	
-		</tr>
-  		<tr>
-  			<td>Week 3</td>
-  			<td><%= calculate_weight(workout.working_max, 0.50) %> </td>
-  			<td><%= calculate_weight(workout.working_max, 0.60) %> </td>
-  			<td><%= calculate_weight(workout.working_max, 0.70) %> </td>	
-  			<td><%= calculate_weight(workout.working_max, 0.75) %> </td>
-  			<td>x5</td>	
-  			<td><%= calculate_weight(workout.working_max, 0.85) %> </td>	
-  			<td>x3</td>	
-  			<td><%= calculate_weight(workout.working_max, 0.95) %> </td>	
-  			<td>x1</td>			
-		</tr>
-		<tr>
-  			<td></td>
-			<td><%= each_weight(workout.working_max, 0.50) %> </td>
-  			<td><%= each_weight(workout.working_max, 0.60) %> </td>
-  			<td><%= each_weight(workout.working_max, 0.70) %> </td>		
-  			<td><%= each_weight(workout.working_max, 0.75) %> </td>	
-  			<td></td>
-  			<td><%= each_weight(workout.working_max, 0.85) %> </td>	
-  			<td></td>
-  			<td><%= each_weight(workout.working_max, 0.95) %> </td>	
-  			<td></td>	
-		</tr>
-		<tr>
-  			<td>Deload Week</td>
-  			<td></td>
-  			<td></td>
-  			<td></td>	
-  			<td><%= calculate_weight(workout.working_max, 0.40) %> </td>
-  			<td>x5</td>	
-  			<td><%= calculate_weight(workout.working_max, 0.50) %> </td>
-  			<td>x5</td>	
-  			<td><%= calculate_weight(workout.working_max, 0.60) %> </td>	
-  			<td>x5</td>				
-		</tr>
-	</table>
-  </p>
-</p>
+<h3><%= workout.title %> </h3> 
+<%= link_to 'View', user_cycle_workout_path(workout.cycle.user, workout.cycle, workout) %>
+<%= link_to 'Edit', edit_user_cycle_workout_path(workout.cycle.user, workout.cycle, workout) %>
+<br />
+1 Rep Max: <%= workout.repmax%> Working Max: <%= workout.working_max%>  
+<div class="table-responsive">			
+<table class="table table-bordered table-hover">
+	<thead>
+	<tr>
+		<th>Week</th>
+		<th>Warm Up 1</th>
+		<th>Warm Up 2</th>
+		<th>Warm Up 3</th>		
+		<th>Lift 1</th>	
+		<th>Reps</th>
+		<th>Lift 2</th>	
+		<th>Reps</th>
+		<th>Lift 3</th>	
+		<th>Reps</th>	
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>1</td>
+		<td class="warning"><%= calculate_weight(workout.working_max, 0.40) %> </td>
+		<td class="warning"><%= calculate_weight(workout.working_max, 0.50) %> </td>
+		<td class="warning"><%= calculate_weight(workout.working_max, 0.60) %> </td>		
+		<td class="info"><%= calculate_weight(workout.working_max, 0.65) %> </td>	
+		<td class="info">x5</td>
+		<td class="info"><%= calculate_weight(workout.working_max, 0.75) %> </td>	
+		<td class="info">x5</td>
+		<td class="info"><%= calculate_weight(workout.working_max, 0.85) %> </td>	
+		<td class="info">x5</td>	
+	</tr>
+	<tr>
+		<td></td>
+		<td class="warning"><%= each_weight(workout.working_max, 0.40) %> </td>
+		<td class="warning"><%= each_weight(workout.working_max, 0.50) %> </td>
+		<td class="warning"><%= each_weight(workout.working_max, 0.60) %> </td>		
+		<td class="info"><%= each_weight(workout.working_max, 0.65) %> </td>	
+		<td class="info"></td>
+		<td class="info"><%= each_weight(workout.working_max, 0.75) %> </td>	
+		<td class="info"></td>
+		<td class="info"><%= each_weight(workout.working_max, 0.85) %> </td>	
+		<td class="info"></td>	
+	</tr>
+	<tr>
+		<td>2</td>
+		<td><%= calculate_weight(workout.working_max, 0.45) %> </td>
+		<td><%= calculate_weight(workout.working_max, 0.55) %> </td>
+		<td><%= calculate_weight(workout.working_max, 0.65) %> </td>	
+		<td><%= calculate_weight(workout.working_max, 0.70) %> </td>
+		<td>x3</td>
+		<td><%= calculate_weight(workout.working_max, 0.80) %> </td>
+		<td>x3</td>
+		<td><%= calculate_weight(workout.working_max, 0.90) %> </td>	
+		<td>x3</td>	
+	</tr>
+	<tr>
+		<td></td>
+		<td><%= each_weight(workout.working_max, 0.45) %> </td>
+		<td><%= each_weight(workout.working_max, 0.55) %> </td>
+		<td><%= each_weight(workout.working_max, 0.65) %> </td>		
+		<td><%= each_weight(workout.working_max, 0.70) %> </td>	
+		<td></td>
+		<td><%= each_weight(workout.working_max, 0.80) %> </td>	
+		<td></td>
+		<td><%= each_weight(workout.working_max, 0.90) %> </td>	
+		<td></td>	
+	</tr>
+	<tr>
+		<td>3</td>
+		<td><%= calculate_weight(workout.working_max, 0.50) %> </td>
+		<td><%= calculate_weight(workout.working_max, 0.60) %> </td>
+		<td><%= calculate_weight(workout.working_max, 0.70) %> </td>	
+		<td><%= calculate_weight(workout.working_max, 0.75) %> </td>
+		<td>x5</td>	
+		<td><%= calculate_weight(workout.working_max, 0.85) %> </td>	
+		<td>x3</td>	
+		<td><%= calculate_weight(workout.working_max, 0.95) %> </td>	
+		<td>x1</td>			
+	</tr>
+	<tr>
+		<td></td>
+		<td><%= each_weight(workout.working_max, 0.50) %> </td>
+		<td><%= each_weight(workout.working_max, 0.60) %> </td>
+		<td><%= each_weight(workout.working_max, 0.70) %> </td>		
+		<td><%= each_weight(workout.working_max, 0.75) %> </td>	
+		<td></td>
+		<td><%= each_weight(workout.working_max, 0.85) %> </td>	
+		<td></td>
+		<td><%= each_weight(workout.working_max, 0.95) %> </td>	
+		<td></td>	
+	</tr>
+	<tr>
+		<td>Deload</td>
+		<td></td>
+		<td></td>
+		<td></td>	
+		<td><%= calculate_weight(workout.working_max, 0.40) %> </td>
+		<td>x5</td>	
+		<td><%= calculate_weight(workout.working_max, 0.50) %> </td>
+		<td>x5</td>	
+		<td><%= calculate_weight(workout.working_max, 0.60) %> </td>	
+		<td>x5</td>				
+	</tr>
+	<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>		
+		<td><%= each_weight(workout.working_max, 0.40) %> </td>	
+		<td></td>
+		<td><%= each_weight(workout.working_max, 0.50) %> </td>	
+		<td></td>
+		<td><%= each_weight(workout.working_max, 0.60) %> </td>	
+		<td></td>	
+	</tr>
+	</tbody>
+</table>
+</div>

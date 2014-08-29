@@ -2,6 +2,7 @@ class WorkoutsController < ApplicationController
   
   def show
     @workout = Workout.find(params[:id])
+    @user = @workout.cycle.user
   end
   
   def edit

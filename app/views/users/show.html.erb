@@ -1,12 +1,6 @@
-<p>
-  <strong>User:</strong>
-  <%= @user.first_name %>
-  <%= @user.last_name %>
-</p>
+<h1><%= @user.first_name %> <%= @user.last_name %></h1>
 
-<h2>Cycles</h2>
-<td><%= link_to 'View All', user_cycles_path(@user) %></td>
 <%= render partial: 'cycles/cycleAndWorkout', object: @user.cycles.last, as: 'cycle' %>
 
-<h2>Add a cycle:</h2>
+<h4>Add a cycle:</h4>
 <%= render "cycles/form" %>
