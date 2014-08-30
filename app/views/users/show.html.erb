@@ -1,6 +1,1 @@
-<h1><%= @user.first_name %> <%= @user.last_name %></h1>
-
 <%= render partial: 'cycles/cycleAndWorkout', object: @user.cycles.last, as: 'cycle' %>
-
-<h4>Add a cycle:</h4>
-<%= render "cycles/form" %>
