@@ -1,34 +1,32 @@
 class CyclesController < ApplicationController
+  include SessionsHelper
   
   def index
-    @user = User.find(params[:user_id])
-    @cycle = @user.cycles.all
+    @cycles = current_user.cycles.all
   end
   
   def create
-    @user = User.find(params[:user_id])
-    @cycle = @user.cycles.create(cycle_params)
-    @cycle.workouts.create(title:'Squat', repmax:0)
-    @cycle.workouts.create(title:'Bench Press', repmax:0)
-    @cycle.workouts.create(title:'Deadlift', repmax:0)
-    @cycle.workouts.create(title:'Overhead Press', repmax:0)
-    redirect_to user_path(@user)
+    number = 1
+    last_cycle = current_user.cycles.last
+    if (last_cycle)
+      number = last_cycle.number + 1
+    end
+    cycle = current_user.cycles.create(number:number)
+    
+    WorkoutType.where(active:true).each do |workoutType|
+       cycle.workouts.create(workout_type: workoutType)
+    end
+    
+    redirect_to user_path(current_user)
   end
   
   def show
     @cycle = Cycle.find(params[:id])
-    @user = @cycle.user
   end
   
   def destroy
-    @user = User.find(params[:user_id])
-    @cycle = @user.cycles.find(params[:id])
-    @cycle.destroy
-    redirect_to user_path(@user)
+    cycles.find(params[:id]).destroy
+    redirect_to user_path(current_user)
   end
- 
-  private
-    def cycle_params
-      params.require(:cycle).permit(:title)
-    end
+
 end

@@ -16,12 +16,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      cycle = @user.cycles.create(title:'First')
-      cycle.workouts.create(title:'Squat', repmax:0)
-      cycle.workouts.create(title:'Bench Press', repmax:0)
-      cycle.workouts.create(title:'Deadlift', repmax:0)
-      cycle.workouts.create(title:'Overhead Press', repmax:0)
       flash[:success] = "Welcome to the Sample App!"
+      sign_in @user
       redirect_to @user
     else
       render 'new'
@@ -29,7 +25,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user= User.find(params[:id])
+    @user = User.find(params[:id])
   end
 
   private

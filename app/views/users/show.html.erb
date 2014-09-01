@@ -1,1 +1,5 @@
-<%= render partial: 'cycles/cycleAndWorkout', object: @user.cycles.last, as: 'cycle' %>
+<% if @user.cycles.last %>
+	<%= render partial: 'cycles/cycleAndWorkout', object: @user.cycles.last, as: 'cycle' %>
+<% end %>
+
+<%= button_to "Create Cycle", user_cycles_path(@user, :method => :post, :class => "btn btn-primary btn-lg")%>

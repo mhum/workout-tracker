@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140830152735) do
+ActiveRecord::Schema.define(version: 20140901170036) do
 
   create_table "cycles", force: true do |t|
-    t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.integer  "number"
   end
 
   create_table "users", force: true do |t|
@@ -32,12 +32,19 @@ ActiveRecord::Schema.define(version: 20140830152735) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["remember_token"], name: "index_users_on_remember_token"
 
+  create_table "workout_types", force: true do |t|
+    t.string  "title"
+    t.boolean "active"
+    t.integer "sort_order"
+  end
+
   create_table "workouts", force: true do |t|
     t.integer  "repmax"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "cycle_id"
     t.string   "title"
+    t.integer  "workout_type_id"
   end
 
 end

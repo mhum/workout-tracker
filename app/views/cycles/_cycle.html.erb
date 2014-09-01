@@ -1,5 +1,5 @@
 <tr>
-	<td><%= link_to cycle.title, user_cycle_path(cycle.user, cycle) %></td>	
+	<td><%= link_to cycle.number, user_cycle_path(cycle.user, cycle) %></td>	
 	<% cycle.workouts.each do |workout| %>
 	<td><%= workout.title %></td>
 	<% end %>	
