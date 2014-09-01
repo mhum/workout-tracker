@@ -1,7 +1,7 @@
+<tr>
+	<td><%= link_to cycle.title, user_cycle_path(cycle.user, cycle) %></td>	
+	<% cycle.workouts.each do |workout| %>
+	<td><%= workout.title %></td>
+	<% end %>	
+</tr>
 
-<h2>Cycle: <%= cycle.title %></h2>
-<%= link_to 'View All', user_cycles_path(cycle.user) %>
-<%= link_to 'View', user_cycle_path(cycle.user, cycle) %>
-<%= link_to 'Delete', [cycle.user, cycle],
-             method: :delete,
-             data: { confirm: 'Are you sure?' } %>
