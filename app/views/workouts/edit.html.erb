@@ -1,5 +1,5 @@
 <h1>Editing Workout</h1>
-<h2><%= @workout.title %> for <%= @workout.cycle.title %> Cycle</h2>
+<h2><%= @workout.workout_type.title %> for Cycle# <%= @workout.cycle.number %></h2>
 
 <%= form_for :workout, url: user_cycle_workout_path(@workout.cycle.user, @workout.cycle, @workout), 
 	 method: :patch do |f| %>

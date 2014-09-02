@@ -1,8 +1,9 @@
 class Workout < ActiveRecord::Base
   belongs_to :workout_type
   belongs_to :cycle
+  has_many :lifts, dependent: :destroy
+  
   default_scope {joins(:workout_type).order('workout_types.sort_order ASC') }
- 
   
   before_create :default_values
   

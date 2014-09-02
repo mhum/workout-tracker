@@ -14,7 +14,10 @@ class CyclesController < ApplicationController
     cycle = current_user.cycles.create(number:number)
     
     WorkoutType.where(active:true).each do |workoutType|
-       cycle.workouts.create(workout_type: workoutType)
+       workout = cycle.workouts.create(workout_type: workoutType)
+       WorkoutType.includes(:workout_lifts).find(workoutType.id).workout_lifts.each do |workoutLift|
+         workout.lifts.create(workout_lift:workoutLift)     
+       end
     end
     
     redirect_to user_path(current_user)
