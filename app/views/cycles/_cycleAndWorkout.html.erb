@@ -1,5 +1,10 @@
 <h1>Cycle #<%= cycle.number %></h1>
 
 <div class="row">
-<%= render cycle.workouts %>
+	<% cycle.workouts.each do |workout| %>
+		<div class="col-lg-6">
+			<%= render workout %>
+		</div>
+	<% end %>
+
 </div>

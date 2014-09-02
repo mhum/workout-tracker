@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   
   resources :users do
     resources :cycles do
-      resources :workouts
+      resources :workouts do
+        resources :lifts
+      end
     end
   end
   resources :sessions, only: [:new, :create, :destroy] 

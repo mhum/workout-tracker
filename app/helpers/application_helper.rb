@@ -1,4 +1,5 @@
 module ApplicationHelper
+  include WorkoutsHelper
   def nav_bar
     content_tag(:ul, class: "nav navbar-nav") do
       yield

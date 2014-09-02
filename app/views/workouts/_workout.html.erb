@@ -1,38 +1,38 @@
-<div class="col-lg-6">
-	<h3><%= link_to workout.workout_type.title, user_cycle_workout_path(workout.cycle.user, workout.cycle, workout) %></h3>
-	<%= link_to 'Edit', edit_user_cycle_workout_path(workout.cycle.user, workout.cycle, workout) %>
-	<br />
-	1 Rep Max: <%= workout.repmax%> Working Max: <%= workout.working_max%>
-	<div class="table-responsive">
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>W</th><th>WU</th><th>WU</th><th>WU</th><th>L</th><th>L</th><th>L</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% workout.lifts.each do |lift| %>
-				<% wl = lift.workout_lift %>
-				<tr>
-					<td><%= lift.workout_lift.title %></td>
-					<td class="info"><%= calculate_weight(workout.working_max, wl.wu1_offset) %> </td>
-					<td class="info"><%= calculate_weight(workout.working_max, wl.wu2_offset) %> </td>
-					<td class="info"><%= calculate_weight(workout.working_max, wl.wu3_offset) %> </td>
-					<%= cell_color(calculate_weight(workout.working_max, wl.l1_offset), wl.l1_reps)%>
-					<%= cell_color(calculate_weight(workout.working_max, wl.l2_offset), wl.l2_reps)%>
-					<%= cell_color(calculate_weight(workout.working_max, wl.l3_offset), wl.l3_reps)%>
-				</tr>
-				<tr>
-					<td></td>
-					<td class="info"><%= each_weight(workout.working_max, wl.wu1_offset) %> </td>
-					<td class="info"><%= each_weight(workout.working_max, wl.wu2_offset) %> </td>
-					<td class="info"><%= each_weight(workout.working_max, wl.wu3_offset) %> </td>
-					<%= cell_color(each_weight(workout.working_max, wl.l1_offset), wl.l1_reps)%>
-					<%= cell_color(each_weight(workout.working_max, wl.l2_offset), wl.l2_reps)%>
-					<%= cell_color(each_weight(workout.working_max, wl.l3_offset), wl.l3_reps)%>
-				</tr>
-				<% end %>
-			</tbody>
-		</table>
-	</div>
+<h3><%= link_to workout.workout_type.title, user_cycle_workout_path(workout.cycle.user, workout.cycle, workout) %></h3>
+<%= link_to 'Edit', edit_user_cycle_workout_path(workout.cycle.user, workout.cycle, workout) %>
+<br />
+1 Rep Max: <%= workout.repmax%> Working Max: <%= workout.working_max%>
+<div class="table-responsive">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>W</th><th>WU</th><th>WU</th><th>WU</th><th>L</th><th>L</th><th>L</th><th>Reps</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% workout.lifts.each do |lift| %>
+			<% wl = lift.workout_lift %>
+			<tr>
+				<td><%= link_to lift.workout_lift.title, user_cycle_workout_lift_path(current_user, workout.cycle, workout, lift) %></td>
+				<td class="info"><%= calculate_weight(workout.working_max, wl.wu1_offset) %> </td>
+				<td class="info"><%= calculate_weight(workout.working_max, wl.wu2_offset) %> </td>
+				<td class="info"><%= calculate_weight(workout.working_max, wl.wu3_offset) %> </td>
+				<%= cell_color(calculate_weight(workout.working_max, wl.l1_offset), wl.l1_reps)%>
+				<%= cell_color(calculate_weight(workout.working_max, wl.l2_offset), wl.l2_reps)%>
+				<%= cell_color(calculate_weight(workout.working_max, wl.l3_offset), wl.l3_reps)%>
+				<td><%= lift.reps_completed %></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td class="info"><%= each_weight(workout.working_max, wl.wu1_offset) %> </td>
+				<td class="info"><%= each_weight(workout.working_max, wl.wu2_offset) %> </td>
+				<td class="info"><%= each_weight(workout.working_max, wl.wu3_offset) %> </td>
+				<%= cell_color(each_weight(workout.working_max, wl.l1_offset), wl.l1_reps)%>
+				<%= cell_color(each_weight(workout.working_max, wl.l2_offset), wl.l2_reps)%>
+				<%= cell_color(each_weight(workout.working_max, wl.l3_offset), wl.l3_reps)%>
+				<td></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
 </div>

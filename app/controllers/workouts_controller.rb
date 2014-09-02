@@ -19,8 +19,6 @@ class WorkoutsController < ApplicationController
     end
   end
   
-
-  
   private
   def workout_params
     params.require(:workout).permit(:repmax)
