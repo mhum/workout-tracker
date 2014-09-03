@@ -3,7 +3,7 @@
 	in Cycle #<%= @lift.workout.cycle.number %>
 </h2>
 
-<%= form_for :lift, url: user_cycle_workout_lift_path(current_user, @lift.workout.cycle, @lift.workout, @lift), 
+<%= form_for :lift, url: lift_path(@lift), 
 	 method: :patch do |f| %>
   <% if @lift.errors.any? %>
   <div id="error_explanation">

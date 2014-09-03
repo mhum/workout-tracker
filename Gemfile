@@ -11,8 +11,9 @@ gem 'jbuilder', '~> 2.0'
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
+gem 'breadcrumbs_on_rails'
 
-gem 'sdoc', '~> 0.4.0',          group: :doc
+gem 'sdoc', '~> 0.4.0', group: :doc
 
 group :development do
   gem 'spring'

@@ -1,8 +1,14 @@
 class WorkoutsController < ApplicationController
+  include SessionsHelper
+  
+  add_breadcrumb "Home", :root_path
+  add_breadcrumb "Profile", :profile_path
   
   def show
     @workout = Workout.find(params[:id])
-    @user = @workout.cycle.user
+    
+    add_breadcrumb "Cycle ##{@workout.cycle.number}", cycle_path(@workout.cycle)
+    add_breadcrumb @workout.workout_type.title, workout_path(@workout)
   end
   
   def edit
@@ -22,5 +28,9 @@ class WorkoutsController < ApplicationController
   private
   def workout_params
     params.require(:workout).permit(:repmax)
+  end  
+  
+  def current_cycle
+    Workout.find(params[:id]).cycle
   end
 end

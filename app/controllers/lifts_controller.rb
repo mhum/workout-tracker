@@ -1,7 +1,15 @@
 class LiftsController < ApplicationController
+  include SessionsHelper
   
+  add_breadcrumb "Home", :root_path
+  add_breadcrumb "Profile", :profile_path
+    
   def show
     @lift = Lift.find(params[:id])
+    
+    add_breadcrumb "Cycle ##{@lift.workout.cycle.number}", cycle_path(@lift.workout.cycle)
+    add_breadcrumb @lift.workout.workout_type.title, workout_path(@lift.workout)
+    add_breadcrumb "Lift - #{@lift.workout_lift.title}", lift_path(@lift)    
   end
   
   def edit

@@ -1,7 +1,12 @@
 class CyclesController < ApplicationController
   include SessionsHelper
   
+  add_breadcrumb "Home", :root_path
+  add_breadcrumb "Profile", :profile_path
+  
   def index
+    add_breadcrumb "Cycles", user_cycles_path
+        
     @cycles = current_user.cycles.all
   end
   
@@ -23,8 +28,10 @@ class CyclesController < ApplicationController
     redirect_to user_path(current_user)
   end
   
-  def show
+  def show        
     @cycle = Cycle.find(params[:id])
+    
+    add_breadcrumb "Cycle ##{@cycle.number}", cycle_path(@cycle)
   end
   
   def destroy
