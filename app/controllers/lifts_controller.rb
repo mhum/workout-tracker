@@ -7,6 +7,7 @@ class LiftsController < ApplicationController
   def show
     @lift = Lift.find(params[:id])
     
+    add_breadcrumb "Cycles", user_cycles_path(current_user)
     add_breadcrumb "Cycle ##{@lift.workout.cycle.number}", cycle_path(@lift.workout.cycle)
     add_breadcrumb @lift.workout.workout_type.title, workout_path(@lift.workout)
     add_breadcrumb "Lift - #{@lift.workout_lift.title}", lift_path(@lift)    
@@ -14,6 +15,11 @@ class LiftsController < ApplicationController
   
   def edit
     @lift = Lift.find(params[:id])
+    
+    add_breadcrumb "Cycles", user_cycles_path(current_user)
+    add_breadcrumb "Cycle ##{@lift.workout.cycle.number}", cycle_path(@lift.workout.cycle)
+    add_breadcrumb @lift.workout.workout_type.title, workout_path(@lift.workout)
+    add_breadcrumb "Lift - #{@lift.workout_lift.title}", lift_path(@lift)   
   end
     
   def update

@@ -7,12 +7,17 @@ class WorkoutsController < ApplicationController
   def show
     @workout = Workout.find(params[:id])
     
+    add_breadcrumb "Cycles", user_cycles_path(current_user)
     add_breadcrumb "Cycle ##{@workout.cycle.number}", cycle_path(@workout.cycle)
     add_breadcrumb @workout.workout_type.title, workout_path(@workout)
   end
   
   def edit
     @workout = Workout.find(params[:id])
+    
+    add_breadcrumb "Cycles", user_cycles_path(current_user)
+    add_breadcrumb "Cycle ##{@workout.cycle.number}", cycle_path(@workout.cycle)
+    add_breadcrumb @workout.workout_type.title, workout_path(@workout)
   end
   
   def update

@@ -2,8 +2,9 @@
 	<td><%= link_to cycle.number, cycle_path(cycle) %></td>	
 	<% cycle.workouts.each do |workout| %>
 	<td><%= link_to workout.workout_type.title, workout_path(workout) %></td>  
-	<td><%=calculate_weight(workout.working_max, workout.lifts[-2].workout_lift.l3_offset) %></td>
-	<td><%=workout.lifts[-2].reps_completed %></td>
+	<td><%= calculate_weight(workout.working_max, workout.lifts[-2].workout_lift.l3_offset) %></td>
+	<td><%= workout.lifts[-2].reps_completed %></td>
+	<td><%= calc_orm(workout.lifts[-2]) %></td>
 	<% end %>	
 </tr>
 

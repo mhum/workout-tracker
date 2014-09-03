@@ -13,7 +13,7 @@ module WorkoutsHelper
   
   def calculate_weight(working_max, percent)
     if (percent)
-      round(working_max * percent)
+      round_to_fifth(working_max * percent)
     end
   end
   
@@ -28,7 +28,7 @@ module WorkoutsHelper
   end
   
   private
-    def round(x)
+    def round_to_fifth(x)
       ((x/5).round)*5
     end
 end

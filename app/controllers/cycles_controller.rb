@@ -31,6 +31,7 @@ class CyclesController < ApplicationController
   def show        
     @cycle = Cycle.find(params[:id])
     
+    add_breadcrumb "Cycles", user_cycles_path(current_user)
     add_breadcrumb "Cycle ##{@cycle.number}", cycle_path(@cycle)
   end
   
