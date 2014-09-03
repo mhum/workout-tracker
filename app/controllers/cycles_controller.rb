@@ -1,6 +1,9 @@
 class CyclesController < ApplicationController
   include SessionsHelper
   
+  before_action :signed_in_user, only: [:edit, :update, :show, :index]
+  before_action :correct_user,   only: [:edit, :update, :show]
+  
   add_breadcrumb "Home", :root_path
   add_breadcrumb "Profile", :profile_path
   
