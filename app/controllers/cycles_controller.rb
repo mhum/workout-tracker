@@ -28,7 +28,7 @@ class CyclesController < ApplicationController
        end
     end
     
-    redirect_to user_path(current_user)
+    redirect_to profile_path
   end
   
   def show        
@@ -42,5 +42,10 @@ class CyclesController < ApplicationController
     cycles.find(params[:id]).destroy
     redirect_to user_path(current_user)
   end
-
+  
+  private
+    def correct_user
+      user = current_user
+      redirect_to(root_url) unless current_user?(Cycle.find(params[:id]).user)
+    end
 end

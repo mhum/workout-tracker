@@ -1,5 +1,25 @@
-<% if @user.cycles.last %>
-	<%= render partial: 'cycles/cycleAndWorkout', object: @user.cycles.last, as: 'cycle' %>
+<h1>Profile</h1>
+<% if @current_lift%>
+	<h3>Current Cycle: <%=link_to "##{current_user.cycles.last.number}", cycle_path(current_user.cycles.last) %></h3>
+	
+	<h4><%=link_to @current_lift.workout.workout_type.title, workout_path(@current_lift.workout) %></h4>
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>#</th><th>WU</th><th>WU</th><th>WU</th><th>L</th><th>L</th><th>L</th><th>Reps</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%= render @current_lift %>
+			</tbody>
+		</table>
+	</div>
+<% elsif current_user.cycles.size>0 %>
+	You're done with the current cycle. Congratulations!
+	<%= button_to "Create Next Cycle", user_cycles_path(current_user, :method => :post, :class => "btn btn-primary btn-lg")%>
+<% else current_user.cycles.size>0 %>
+	You have created any cycles yet. Begin by creating one!
+	<%= button_to "Create First", user_cycles_path(current_user, :method => :post, :class => "btn btn-primary btn-lg")%>
 <% end %>
 
-<%= button_to "Create Cycle", user_cycles_path(@user, :method => :post, :class => "btn btn-primary btn-lg")%>

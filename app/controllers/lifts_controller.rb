@@ -37,7 +37,12 @@ class LiftsController < ApplicationController
   end
   
   private
-  def lift_params
-    params.require(:lift).permit(:reps_completed)
-  end
+    def lift_params
+      params.require(:lift).permit(:reps_completed)
+    end
+
+    def correct_user
+      user = current_user
+      redirect_to(root_url) unless current_user?(Lift.find(params[:id]).workout.cycle.user)
+    end
 end

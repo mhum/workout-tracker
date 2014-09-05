@@ -42,4 +42,9 @@ class WorkoutsController < ApplicationController
   def current_cycle
     Workout.find(params[:id]).cycle
   end
+  
+    def correct_user
+      user = current_user
+      redirect_to(root_url) unless current_user?(Workout.find(params[:id]).cycle.user)
+    end
 end
