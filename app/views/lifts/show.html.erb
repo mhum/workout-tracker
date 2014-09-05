@@ -1,17 +1,21 @@
 <h1>Lift</h1>
-<h2>Lift <%= @lift.workout_lift.title %> for <%= @lift.workout.workout_type.title %>
-in Cycle #<%= @lift.workout.cycle.number %> </h2>
 
-<%= link_to 'Edit', edit_lift_path(@lift) %>
-<div class="table-responsive">
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>#</th><th>WU</th><th>WU</th><th>WU</th><th>L</th><th>L</th><th>L</th><th>Reps</th>
-			</tr>
-		</thead>
-		<tbody>
-			<%= render @lift %>
-		</tbody>
-	</table>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">Lift <%= @lift.workout_lift.title %> for <%= @lift.workout.workout_type.title %>
+		in Cycle #<%= @lift.workout.cycle.number %></h3>
+		<div class="text-right"><%= link_to 'Edit', edit_lift_path(@lift) %></div>
+	</div>
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>#</th><th>WU</th><th>WU</th><th>WU</th><th>L</th><th>L</th><th>L</th><th>Reps</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%= render @lift %>
+			</tbody>
+		</table>
+	</div>
 </div>

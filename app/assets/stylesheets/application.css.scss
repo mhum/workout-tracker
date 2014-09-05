@@ -73,6 +73,10 @@ p {
   line-height: 1.7em;
 }
 
+h3 a {
+  color: #428bca !important;
+}
+
 @mixin box_sizing {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;

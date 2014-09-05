@@ -1,19 +1,23 @@
 <h1>Profile</h1>
-<% if @current_lift%>
-	<h3>Current Cycle: <%=link_to "##{current_user.cycles.last.number}", cycle_path(current_user.cycles.last) %></h3>
-	
-	<h4><%=link_to @current_lift.workout.workout_type.title, workout_path(@current_lift.workout) %></h4>
-	<div class="table-responsive">
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>#</th><th>WU</th><th>WU</th><th>WU</th><th>L</th><th>L</th><th>L</th><th>Reps</th>
-				</tr>
-			</thead>
-			<tbody>
-				<%= render @current_lift %>
-			</tbody>
-		</table>
+<% if @current_lift%>	
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title"><%= link_to @current_lift.workout.workout_type.title, workout_path(@current_lift.workout) %> for
+				Cycle <%= link_to "##{current_user.cycles.last.number}", cycle_path(current_user.cycles.last) %>
+			</h3>
+		</div>
+		<div class="table-responsive">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>#</th><th>WU</th><th>WU</th><th>WU</th><th>L</th><th>L</th><th>L</th><th>Reps</th>
+					</tr>
+				</thead>
+				<tbody>
+					<%= render @current_lift %>
+				</tbody>
+			</table>
+		</div>
 	</div>
 <% elsif current_user.cycles.size>0 %>
 	You're done with the current cycle. Congratulations!

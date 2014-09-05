@@ -1,16 +1,21 @@
-<h3><%= link_to workout.workout_type.title, workout_path(workout) %></h3>
-<%= link_to 'Edit', edit_workout_path(workout) %>
-<br />
-1 Rep Max: <%= workout.repmax%> Working Max: <%= workout.working_max%>
-<div class="table-responsive">
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>W</th><th>WU</th><th>WU</th><th>WU</th><th>L</th><th>L</th><th>L</th><th>Reps</th>
-			</tr>
-		</thead>
-		<tbody>
-			<%= render workout.lifts %>
-		</tbody>
-	</table>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title"><%= workout.workout_type.title %> for Cycle #<%= workout.cycle.number %></h3>
+		One Rep Max: <span class="badge"><%= workout.repmax%></span>
+		Working Max: <span class="badge"><%= workout.working_max%></span>
+		<div class="pull-right"><%= link_to 'View', workout_path(workout) %>
+			<%= link_to 'Edit', edit_workout_path(workout) %></div>
+	</div>
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>W</th><th>WU</th><th>WU</th><th>WU</th><th>L</th><th>L</th><th>L</th><th>Reps</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%= render workout.lifts %>
+			</tbody>
+		</table>
+	</div>
 </div>
