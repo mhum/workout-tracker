@@ -5,7 +5,6 @@ class CyclesController < ApplicationController
   before_action :correct_user,   only: [:edit, :update, :show]
   
   add_breadcrumb "Home", :root_path
-  add_breadcrumb "Profile", :profile_path
   
   def index
     add_breadcrumb "Cycles", user_cycles_path

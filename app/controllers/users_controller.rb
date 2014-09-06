@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   include SessionsHelper
 
   before_action :signed_in_user, only: [:edit, :update, :show, :index]
-  before_action :correct_user,   only: [:edit, :update]
+  before_action :correct_user,   only: [:update]
 
   add_breadcrumb "Home", :root_path
   def index
@@ -13,6 +13,9 @@ class UsersController < ApplicationController
   end
 
   def new
+    if current_user
+      redirect_to root_path
+    end
     add_breadcrumb "Sign Up", :root_path
 
     @user = User.new
@@ -29,34 +32,28 @@ class UsersController < ApplicationController
     end
   end
 
-  def show
+  def edit
     add_breadcrumb "Profile"
-
-    @current_lift = get_current_lift
+    @user = current_user
+  end
+  
+  def update
+    @user = current_user
+    if @user.update_attributes(user_params)
+      flash[:success] = "Profile updated"
+      redirect_to root_path
+    else
+      render 'edit'
+    end
   end
 
   private
-
     def user_params
       params.require(:user).permit(:first_name, :email, :password, :password_confirmation)
     end
-  
-    def get_current_lift
-      last_cycle = current_user.cycles.last
-      workout_counter = 0
-      lift_counter = 0
-      if (last_cycle)
-        last_cycle.workouts.each do |workout|
-          reps_completed = workout.lifts[lift_counter].reps_completed
-          if (!reps_completed)
-            return workout.lifts[lift_counter]
-          end
-          workout_counter = workout_counter + 1
-          if (workout_counter == 4)
-            lift_counter = lift_counter + 1
-          end
-        end
-        return nil
-      end
+    
+    def correct_user
+      user = current_user
+      redirect_to(root_url) unless current_user?(User.find(params[:id]))
     end
 end

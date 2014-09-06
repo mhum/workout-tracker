@@ -6,7 +6,6 @@ class WorkoutsController < ApplicationController
   before_action :correct_user,   only: [:edit, :update, :show]
   
   add_breadcrumb "Home", :root_path
-  add_breadcrumb "Profile", :profile_path
   
   def show
     @workout = Workout.find(params[:id])
