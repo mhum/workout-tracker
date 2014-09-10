@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     if @user.save
       flash[:success] = "Welcome to the Workout Tracker!"
       sign_in @user
-      redirect_to profile_path
+      redirect_to root_path
     else
       render 'new'
     end

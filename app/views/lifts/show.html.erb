@@ -2,15 +2,19 @@
 
 <div class="panel panel-default">
 	<div class="panel-heading">
+		<div class="pull-right">
+			<button type="button" class="btn btn-default"><%= link_to 'View', lift_path(@lift) %></button>
+			<button type="button" class="btn btn-default"><%= link_to 'Edit', edit_lift_path(@lift) %></button>
+		</div>
 		<h3 class="panel-title">Lift <%= @lift.workout_lift.title %> for <%= @lift.workout.workout_type.title %>
-		in Cycle #<%= @lift.workout.cycle.number %></h3>
-		<div class="text-right"><%= link_to 'Edit', edit_lift_path(@lift) %></div>
+		in Cycle #<%= @lift.workout.cycle.number %></h3> <br>
 	</div>
 	<div class="table-responsive">
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>#</th><th>WU</th><th>WU</th><th>WU</th><th>L</th><th>L</th><th>L</th><th>Reps</th>
+					<th>#</th><th>WU</th><th>WU</th><th>WU</th><th>L</th>
+					<th>L</th><th>L</th><th>Reps</th><th>Completed</th>
 				</tr>
 			</thead>
 			<tbody>

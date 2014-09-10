@@ -1,16 +1,19 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
+		<div class="pull-right">
+			<button type="button" class="btn btn-default"><%= link_to 'View', workout_path(workout) %></button>
+			<button type="button" class="btn btn-default"><%= link_to 'Edit', edit_workout_path(workout) %></button>
+		</div>
 		<h3 class="panel-title"><%= workout.workout_type.title %> for Cycle #<%= workout.cycle.number %></h3>
 		One Rep Max: <span class="badge"><%= workout.repmax%></span>
 		Working Max: <span class="badge"><%= workout.working_max%></span>
-		<div class="pull-right"><%= link_to 'View', workout_path(workout) %>
-			<%= link_to 'Edit', edit_workout_path(workout) %></div>
 	</div>
 	<div class="table-responsive">
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>W</th><th>WU</th><th>WU</th><th>WU</th><th>L</th><th>L</th><th>L</th><th>Reps</th>
+					<th>W</th><th>WU</th><th>WU</th><th>WU</th><th>L</th>
+					<th>L</th><th>L</th><th>Reps</th><th>Completed</th>
 				</tr>
 			</thead>
 			<tbody>

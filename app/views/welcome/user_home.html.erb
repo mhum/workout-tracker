@@ -2,15 +2,20 @@
 <% if @current_lift%>	
 	<div class="panel panel-default">
 		<div class="panel-heading">
+			<div class="pull-right">
+				<button type="button" class="btn btn-default"><%= link_to 'View', lift_path(@current_lift) %></button>
+				<button type="button" class="btn btn-default"><%= link_to 'Edit', edit_lift_path(@current_lift) %></button>
+			</div>
 			<h3 class="panel-title"><%= link_to @current_lift.workout.workout_type.title, workout_path(@current_lift.workout) %> for
 				Cycle <%= link_to "##{current_user.cycles.last.number}", cycle_path(current_user.cycles.last) %>
-			</h3>
+			</h3><br>
 		</div>
 		<div class="table-responsive">
 			<table class="table table-bordered">
 				<thead>
 					<tr>
-						<th>#</th><th>WU</th><th>WU</th><th>WU</th><th>L</th><th>L</th><th>L</th><th>Reps</th>
+						<th>#</th><th>WU</th><th>WU</th><th>WU</th><th>L</th>
+						<th>L</th><th>L</th><th>Reps</th><th>Completed</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -20,10 +25,14 @@
 		</div>
 	</div>
 <% elsif current_user.cycles.size>0 %>
-	You're done with the current cycle. Congratulations!
-	<%= button_to "Create Next Cycle", user_cycles_path(current_user, :method => :post, :class => "btn btn-primary btn-lg")%>
+	<div class="well">
+		You're done with the current cycle. Congratulations!
+		<%= button_to "Create Next Cycle", user_cycles_path(current_user, :method => :post), :class => "btn btn-success"%>
+	</div>
 <% else current_user.cycles.size>0 %>
-	You have created any cycles yet. Begin by creating one!
-	<%= button_to "Create First", user_cycles_path(current_user, :method => :post, :class => "btn btn-primary btn-lg")%>
+	<div class="well">
+		You haven't created any cycles yet. Begin by creating one!
+		<%= button_to "Create First Cycle", user_cycles_path(current_user, :method => :post), :class => "btn btn-success"%>
+	</div>
 <% end %>
 

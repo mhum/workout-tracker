@@ -7,7 +7,7 @@ class CyclesController < ApplicationController
   add_breadcrumb "Home", :root_path
   
   def index
-    add_breadcrumb "Cycles", user_cycles_path
+    add_breadcrumb "Cycles", cycles_path
         
     @cycles = current_user.cycles.all
   end
@@ -27,13 +27,13 @@ class CyclesController < ApplicationController
        end
     end
     
-    redirect_to profile_path
+    redirect_to root_path
   end
   
   def show        
     @cycle = Cycle.find(params[:id])
     
-    add_breadcrumb "Cycles", user_cycles_path(current_user)
+    add_breadcrumb "Cycles", cycles_path
     add_breadcrumb "Cycle ##{@cycle.number}", cycle_path(@cycle)
   end
   

@@ -7,8 +7,8 @@
 	<%= cell_color(calculate_weight(lift.workout.working_max, wl.l1_offset), wl.l1_reps)%>
 	<%= cell_color(calculate_weight(lift.workout.working_max, wl.l2_offset), wl.l2_reps)%>
 	<%= cell_color(calculate_weight(lift.workout.working_max, wl.l3_offset), wl.l3_reps)%>
-	<td><%= lift.reps_completed %> </td>
-</tr>
+	<td class="col-xs-1"><%= lift.reps_completed %> </td>
+	<td class="col-xs-1"><%= lift.completed_date.strftime("%m/%d/%Y") if lift.completed_date %> </td>
 <tr>
 	<td></td>
 	<td class="info"><%= each_weight(lift.workout.working_max, wl.wu1_offset) %> </td>
@@ -17,6 +17,7 @@
 	<%= cell_color(each_weight(lift.workout.working_max, wl.l1_offset), wl.l1_reps)%>
 	<%= cell_color(each_weight(lift.workout.working_max, wl.l2_offset), wl.l2_reps)%>
 	<%= cell_color(each_weight(lift.workout.working_max, wl.l3_offset), wl.l3_reps)%>
-	<td></td>
+	<td class="col-xs-1"></td>
+	<td class="col-xs-1"></td>
 </tr>
 
