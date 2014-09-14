@@ -1,43 +1,5 @@
 <h1>Editing Lift</h1>
-<h2>Lift <%=@lift.workout_lift.title %> for <%= @lift.workout.workout_type.title %>
-	in Cycle #<%= @lift.workout.cycle.number %>
-</h2>
+<h2>Lift <%= @lift.workout_lift.title %> for <%= @lift.workout.workout_type.title %>
+in Cycle #<%= @lift.workout.cycle.number %> </h2>
 
-<div class = "row">
-	<div class="col-md-4 col-md-offset-4">
-<%= form_for @lift, :html => {:class => 'form-horizontal well well-lg'}, url: lift_path(@lift), 
-	 method: :patch do |f| %>
-  <% if @lift.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@lift.errors.count, "error") %> prohibited
-      this article from being saved:</h2>
-    <ul>
-    <% @lift.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-  <% end %>
-
-			<div class = "<%= field_class(@lift, :reps_completed) %>" >
-				<label class="col-sm-5 control-label" for="repsCompleted">Reps Completed</label>
-				<div class="col-sm-7">
-				<%= f.text_field :reps_completed, :class => "form-control", :id => "repsCompleted"  %>
-				</div>
-			</div>
-			
-			<div class = "<%= field_class(@lift, :completed_date) %>" >
-				<label class="col-sm-5 control-label" for="completedDate">Completed Date</label>
-				<div class="col-sm-7">
-				<%= f.date_field :completed_date, :class => "form-control", :id => "completedDate"  %>
-			</div>
-			</div>
-
-
-
-		<div class="row center">
-			<%= f.submit 'Submit', :class => "btn btn-default" %>
-		</div>
-<% end %>	
-	</div>
-</div>
+<%= render "form"%>

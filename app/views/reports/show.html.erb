@@ -1,0 +1,9 @@
+<script>
+	var options = {};
+	Chart.defaults.global.responsive = true;
+	Chart.defaults.global.maintainAspectRatio = false;
+</script>
+
+<h1>Report for <%= @workout_type.title %></h1>
+
+<%= render partial: "reports/chart", locals: {workout_type: @workout_type} %>

@@ -1,0 +1,31 @@
+<div class = "row">
+	<div class="col-md-4 col-md-offset-4">
+		<%= form_for :workout, :html => {:class => 'form-horizontal well well-lg'}, url: workout_path(@workout),
+		method: :patch do |f| %>
+		<% if @workout.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(@workout.errors.count, "error") %> prohibited
+			this article from being saved:</h2>
+			<ul>
+				<% @workout.errors.full_messages.each do |msg| %>
+				<li>
+					<%= msg %>
+				</li>
+				<% end %>
+			</ul>
+		</div>
+		<% end %>
+
+		<div class = "<%= field_class(@workout, :repmax) %>" >
+			<label class="col-sm-5 control-label" for="repmax,">One Rep Max:</label>
+			<div class="col-sm-6">
+				<%= f.date_field :repmax, :class => "form-control", :id => "repmax,"  %>
+			</div>
+		</div>		
+
+					<div class="row center">
+			<%= f.submit 'Submit', :class => "btn btn-default" %>
+		</div>
+		<% end %>
+	</div>
+</div>

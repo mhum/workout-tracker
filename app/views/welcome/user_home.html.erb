@@ -1,29 +1,7 @@
 <h1>Home</h1>
 <% if @current_lift%>	
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<div class="pull-right">
-				<button type="button" class="btn btn-default"><%= link_to 'View', lift_path(@current_lift) %></button>
-				<button type="button" class="btn btn-default"><%= link_to 'Edit', edit_lift_path(@current_lift) %></button>
-			</div>
-			<h3 class="panel-title"><%= link_to @current_lift.workout.workout_type.title, workout_path(@current_lift.workout) %> for
-				Cycle <%= link_to "##{current_user.cycles.last.number}", cycle_path(current_user.cycles.last) %>
-			</h3><br>
-		</div>
-		<div class="table-responsive">
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-						<th>#</th><th>WU</th><th>WU</th><th>WU</th><th>L</th>
-						<th>L</th><th>L</th><th>Reps</th><th>Completed</th>
-					</tr>
-				</thead>
-				<tbody>
-					<%= render @current_lift %>
-				</tbody>
-			</table>
-		</div>
-	</div>
+	<%= render partial: "lifts/lift_panel", locals: {lift: @current_lift} %>
+
 <% elsif current_user.cycles.size>0 %>
 	<div class="well">
 		You're done with the current cycle. Congratulations!

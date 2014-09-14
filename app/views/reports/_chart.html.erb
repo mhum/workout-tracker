@@ -1,0 +1,25 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title"><%= link_to workout_type.title, controller: "reports", action: "show", id: workout_type %></h3>
+	</div>
+	<div class="panel-body">
+		<div><canvas id="<%= workout_type.title.gsub(/\s+/, "") %>_chart"></canvas></div>
+	</div>
+</div>
+
+<script>
+	var data = {
+		labels: <%= raw instance_variable_get("@#{workout_type.title.gsub(/\s+/, "")}_label") %>,
+		datasets: [{
+			fillColor: "rgba(220,220,220,0.2)",
+			strokeColor: "rgba(220,220,220,1)",
+			pointColor: "rgba(220,220,220,1)",
+			pointStrokeColor: "#fff",
+			pointHighlightFill: "#fff",
+			pointHighlightStroke: "rgba(220,220,220,1)",
+			data: <%= raw instance_variable_get("@#{workout_type.title.gsub(/\s+/, "")}_data") %>,
+		}]
+	};
+	
+	new Chart($("#<%= workout_type.title.gsub(/\s+/, "") %>_chart").get(0).getContext("2d")).Line(data, options);
+</script>

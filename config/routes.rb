@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
   shallow do
     resources :users, only: [:index, :create, :edit, :update] do
-      resources :reports
       resources :cycles
       resources :workouts
       resources :lifts
       end
   end
+  resources :reports, only: [:index, :show] 
   resources :sessions, only: [:create, :destroy] 
   
   root 'welcome#index'  

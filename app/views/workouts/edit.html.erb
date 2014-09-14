@@ -1,23 +1,4 @@
 <h1>Editing Workout</h1>
 <h2><%= @workout.workout_type.title %> for Cycle# <%= @workout.cycle.number %></h2>
 
-<%= form_for :workout, url: workout_path(@workout), 
-	 method: :patch do |f| %>
-  <% if @workout.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@workout.errors.count, "error") %> prohibited
-      this article from being saved:</h2>
-    <ul>
-    <% @workout.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-  <% end %>
-  <p>
-    1 Rep Max: <%= f.text_field :repmax %>
-  </p>
-  <p>
-    <%= f.submit %>
-  </p>
-<% end %>
+<%= render "form"%>
