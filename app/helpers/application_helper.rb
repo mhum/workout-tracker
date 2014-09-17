@@ -7,7 +7,7 @@ module ApplicationHelper
   end
   
   def nav_link(text, path)
-    options = current_controller?(path) ? { class: "active" } : {}
+    options = current_controller?(path)||current_page?(path) ? { class: "active" } : {}
     content_tag(:li, options) do
       link_to text, path
     end
