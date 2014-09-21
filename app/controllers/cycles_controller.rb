@@ -1,8 +1,8 @@
 class CyclesController < ApplicationController
   include SessionsHelper
   
-  before_action :signed_in_user, only: [:edit, :update, :show, :index]
-  before_action :correct_user,   only: [:edit, :update, :show]
+  before_action :signed_in_user, only: [:edit, :update, :show, :index, :destory]
+  before_action :correct_user,   only: [:edit, :update, :show, :destory]
   
   add_breadcrumb "Home", :root_path
   
@@ -18,13 +18,22 @@ class CyclesController < ApplicationController
     if (last_cycle)
       number = last_cycle.number + 1
     end
-    cycle = current_user.cycles.create(number:number)
+
+    last_cycle = current_user.cycles.last
     
-    WorkoutType.where(active:true).each do |workoutType|
-       workout = cycle.workouts.create(workout_type: workoutType)
-       WorkoutType.includes(:workout_lifts).find(workoutType.id).workout_lifts.each do |workoutLift|
-         workout.lifts.create(workout_lift:workoutLift)     
-       end
+    Cycle.transaction do
+      new_cycle = current_user.cycles.create(number:number)
+      WorkoutType.where(active:true).each do |workoutType|
+         repmax = 0
+         if(last_cycle)
+           last_workout = current_user.cycles[-2].workouts.select {|w| w.workout_type.eql? workoutType}
+           repmax = last_workout.first.repmax + workoutType.weight_increase
+         end
+         workout = new_cycle.workouts.create(workout_type: workoutType, repmax:repmax)
+         WorkoutType.includes(:workout_lifts).find(workoutType.id).workout_lifts.each do |workoutLift|
+           workout.lifts.create(workout_lift:workoutLift)     
+         end
+      end
     end
     
     redirect_to root_path
@@ -38,8 +47,18 @@ class CyclesController < ApplicationController
   end
   
   def destroy
-    cycles.find(params[:id]).destroy
-    redirect_to user_path(current_user)
+    cycle = Cycle.find(params[:id])
+    if (cycle == current_user.cycles.last)
+      cycle.destroy
+      flash.now[:success] = "Cycle deleted."
+      redirect_to root_path
+    else
+      flash.now[:danger] = "Cycle not deleted."
+      @cycle = Cycle.find(params[:id])
+      add_breadcrumb "Cycles", cycles_path
+      add_breadcrumb "Cycle ##{@cycle.number}", cycle_path(@cycle)
+      render 'show'
+    end
   end
   
   private

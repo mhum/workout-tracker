@@ -14,9 +14,12 @@
 		<div class="container-fluid">
 			<%= render_breadcrumbs :builder => ::BootstrapBreadcrumbsBuilder %>
 			<% flash.each do |key, value| %>
-			<div class="alert alert-<%= key %>"  role="alert">
-				<%= value %>
-			</div>
+				<div class="alert alert-dismissible alert-<%= key %>"  role="alert">
+					<button type="button" class="close" data-dismiss="alert">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<%= value %>
+				</div>
 			<% end %>
 
 			<%= yield %>

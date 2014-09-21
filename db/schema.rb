@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140908223926) do
+ActiveRecord::Schema.define(version: 20140917015149) do
 
   create_table "cycles", force: true do |t|
     t.datetime "created_at"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20140908223926) do
     t.string  "title"
     t.boolean "active"
     t.integer "sort_order"
+    t.integer "weight_increase"
   end
 
   create_table "workouts", force: true do |t|
@@ -71,7 +72,6 @@ ActiveRecord::Schema.define(version: 20140908223926) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "cycle_id"
-    t.string   "title"
     t.integer  "workout_type_id"
   end
 

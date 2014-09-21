@@ -1,1 +1,5 @@
 <%= render partial: 'cycles/cycleAndWorkout', object: @cycle, as: 'cycle' %>
+
+<% if @cycle == current_user.cycles.last %>
+	<%= button_to "Delete", cycle_path(@cycle), method: :delete, class: 'btn btn-danger' %>
+<% end %>
