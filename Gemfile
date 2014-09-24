@@ -13,14 +13,11 @@ gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 gem 'breadcrumbs_on_rails'
 gem 'json'
+  gem 'mysql2'
 
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 group :development do
   gem 'spring'
   gem 'rspec-rails', '~> 3.0.0'
-end
-
-group :production do
-  gem 'mysql2'
 end
