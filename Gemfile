@@ -12,8 +12,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 gem 'breadcrumbs_on_rails'
-gem 'json'
-  gem 'mysql2'
+gem 'multi_json', '1.7.8' 
+gem 'mysql2'
 
 gem 'sdoc', '~> 0.4.0', group: :doc
 
