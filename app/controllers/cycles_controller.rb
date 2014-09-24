@@ -13,6 +13,7 @@ class CyclesController < ApplicationController
   end
   
   def create
+    logger.info("Create new cycle!")
     number = 1
     last_cycle = current_user.cycles.last
     if (last_cycle)
@@ -23,15 +24,20 @@ class CyclesController < ApplicationController
     
     Cycle.transaction do
       new_cycle = current_user.cycles.create(number:number)
+      logger.info("Create new object")
+      logger.info("Iterate through workouts")
       WorkoutType.where(active:true).each do |workoutType|
+         logger.info("Start workout iterate")
          repmax = 0
          if(last_cycle)
            last_workout = current_user.cycles[-2].workouts.select {|w| w.workout_type.eql? workoutType}
            repmax = last_workout.first.repmax + workoutType.weight_increase
          end
          workout = new_cycle.workouts.create(workout_type: workoutType, repmax:repmax)
+         logger.info("Create new workout! Create lifts")
          WorkoutType.includes(:workout_lifts).find(workoutType.id).workout_lifts.each do |workoutLift|
            workout.lifts.create(workout_lift:workoutLift)     
+           logger.info("Lift created")
          end
       end
     end
