@@ -14,6 +14,15 @@ class CyclesController < ApplicationController
   
   def create
     logger.info("Create new cycle!")
+    
+    workout_types = WorkoutType.where(active:true)
+     
+    if (!workout_types)
+      flash.now[:danger] = "There are no workout types."
+      redirect_to root_path
+      return false
+    end
+      
     number = 1
     last_cycle = current_user.cycles.last
     if (last_cycle)
@@ -26,7 +35,7 @@ class CyclesController < ApplicationController
       new_cycle = current_user.cycles.create(number:number)
       logger.info("Create new object")
       logger.info("Iterate through workouts")
-      WorkoutType.where(active:true).each do |workoutType|
+      workout_types.each do |workoutType|
          logger.info("Start workout iterate")
          repmax = 0
          if(last_cycle)
