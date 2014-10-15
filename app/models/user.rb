@@ -20,7 +20,6 @@ class User < ActiveRecord::Base
   end
 
   private
-
     def create_remember_token
       self.remember_token = User.digest(User.new_remember_token)
     end
