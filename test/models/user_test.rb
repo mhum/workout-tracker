@@ -80,4 +80,24 @@ class UserTest < ActiveSupport::TestCase
     assert !user.valid?, "#{user.errors.messages}"
   end
   
+  test "valid password authenticates" do
+    user = User.new valid_params
+    user.save
+    valid_user= User.find_by(email: user.email)
+    assert_equal user, valid_user.authenticate(user.password)
+  end
+   
+  test "invalid password authenticates" do
+    user = User.new valid_params
+    user.save
+    invalid_user = User.find_by(email: user.email)
+    assert_not_equal user, invalid_user.authenticate("bogus")
+    assert_not invalid_user.authenticate("bogus")
+  end
+  
+  test "create remember token" do
+    user = User.new valid_params
+    user.save
+    assert_not_nil user.remember_token
+  end
 end
