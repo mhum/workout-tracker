@@ -26,8 +26,8 @@ Rails.application.configure do
   config.assets.js_compressor = :uglifier
   # config.assets.css_compressor = :sass
 
-  # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  # Fallback to assets pipeline if a precompiled asset is missed.
+  config.assets.compile = true
 
   # Generate digests for assets URLs.
   config.assets.digest = true
@@ -47,8 +47,8 @@ Rails.application.configure do
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
 
-  # Use a different logger for distributed setups.
-  # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
+  # Use a different logger
+  config.logger = Logger.new(Rails.root.join('log', "#{Rails.env}.log"), 3, 10.megabytes)
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
