@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.1'
+gem 'rails', '~> 4.2'
 gem 'sqlite3'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -13,7 +13,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass', '~> 3.3.4'
 gem 'autoprefixer-rails'
 gem 'breadcrumbs_on_rails'
-gem 'multi_json', '1.7.8' 
+gem 'multi_json', '~> 1.0' 
 gem 'mysql2'
 
 gem 'sdoc', '~> 0.4.0', group: :doc
