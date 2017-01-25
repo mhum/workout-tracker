@@ -1,24 +1,24 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2'
+gem 'rails'
 gem 'sqlite3'
-gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.1.0'
+gem 'sass-rails'
+gem 'uglifier'
+gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
-gem 'jbuilder', '~> 2.0'
-gem 'bcrypt', '~> 3.1.7'
-gem 'bootstrap-sass', '~> 3.3.4'
+gem 'jbuilder'
+gem 'bcrypt'
+gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
 gem 'breadcrumbs_on_rails'
-gem 'multi_json', '~> 1.0' 
+gem 'multi_json'
 gem 'mysql2'
 
-gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'sdoc', group: :doc
 
 group :development do
   gem 'spring'
-  gem 'rspec-rails', '~> 3.0.0'
+  gem 'rspec-rails'
 end
