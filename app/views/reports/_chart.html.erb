@@ -8,18 +8,24 @@
 </div>
 
 <script>
-	var data = {
-		labels: <%= raw instance_variable_get("@#{workout_type.title.gsub(/\s+/, "")}_label") %>,
-		datasets: [{
-			fillColor: "rgba(220,220,220,0.2)",
-			strokeColor: "rgba(220,220,220,1)",
-			pointColor: "rgba(220,220,220,1)",
-			pointStrokeColor: "#fff",
-			pointHighlightFill: "#fff",
-			pointHighlightStroke: "rgba(220,220,220,1)",
-			data: <%= raw instance_variable_get("@#{workout_type.title.gsub(/\s+/, "")}_data") %>,
-		}]
-	};
-	
-	new Chart($("#<%= workout_type.title.gsub(/\s+/, "") %>_chart").get(0).getContext("2d")).Line(data, options);
+	var data =
+
+	new Chart(
+		$("#<%= workout_type.title.gsub(/\s+/, "") %>_chart"),
+		{
+			type: 'line',
+			data: {
+				labels: <%= raw instance_variable_get("@#{workout_type.title.gsub(/\s+/, "")}_label") %>,
+				datasets: [{
+					fillColor: "rgba(220,220,220,0.2)",
+					strokeColor: "rgba(220,220,220,1)",
+					pointColor: "rgba(220,220,220,1)",
+					pointStrokeColor: "#fff",
+					pointHighlightFill: "#fff",
+					pointHighlightStroke: "rgba(220,220,220,1)",
+					data: <%= raw instance_variable_get("@#{workout_type.title.gsub(/\s+/, "")}_data") %>,
+				}]
+			}
+		}
+	);
 </script>
