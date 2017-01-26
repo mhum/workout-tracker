@@ -1,43 +1,18 @@
 import { Grid } from 'react-bootstrap';
-import { connect } from 'react-redux';
 
+import HeaderContainer from './layout/Header';
 
-class App extends React.Component {
-
-  render() {
-    return (
-      <Grid id="container">
-        {
-          React.cloneElement(this.props.children)
-        }
-      </Grid>
-    );
-  }
-}
+const App = ({ children }) => (
+  <Grid id="container">
+    <HeaderContainer />
+    {
+      children
+    }
+  </Grid>
+);
 
 App.propTypes = {
-  children: React.PropTypes.shape({}).isRequired,
+  children: React.PropTypes.shape({}).isRequired
 };
 
-App.defaultProps = {
-
-};
-
-const mapStateToProps = state => (
-  {
-
-  }
-);
-
-const mapDispatchToProps = dispatch => (
-  {
-
-  }
-);
-
-const ReduxApp = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
-
-export default ReduxApp;
+export default App;
