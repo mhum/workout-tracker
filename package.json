@@ -1,0 +1,35 @@
+{
+  "name": "workout-tracker",
+  "version": "2.0.0",
+  "description": "orkout tracker app",
+  "private": true,
+  "scripts": {
+    "test": "./node_modules/.bin/gulp test",
+    "lint": "./node_modules/.bin/gulp lint-soft",
+    "build": "./node_modules/.bin/gulp build",
+    "start-dev": "cd ./client && node ./dev-server.js --hot & cd ./server && ./bin/rails server -p 4000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mhum/workout-tracker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mhum/workout-tracker/issues"
+  },
+  "homepage": "https://github.com/mhum/workout-tracker",
+  "devDependencies": {
+    "del": "^2.2.2",
+    "eslint": "^3.11.1",
+    "eslint-config-airbnb": "^14.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^3.0.2",
+    "eslint-plugin-react": "^6.8.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^3.0.1",
+    "gulp-gzip": "^1.4.0",
+    "webpack-stream": "^3.2.0"
+  }
+}

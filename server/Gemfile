@@ -16,6 +16,8 @@ gem 'breadcrumbs_on_rails'
 gem 'multi_json'
 gem 'mysql2'
 
+gem 'responders'
+
 gem 'sdoc', group: :doc
 
 group :development do
