@@ -1,9 +1,9 @@
 class SessionsController < ApplicationController
   protect_from_forgery with: :exception
   include SessionsHelper
-  
+
   add_breadcrumb "Home", :root_path
-  
+
   def new
     if current_user
       redirect_to root_path

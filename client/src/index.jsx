@@ -11,14 +11,14 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
-//import reducers from './redux/reducers';
+import reducers from './redux/reducers';
 import Root from './components/Root';
 
 //import './less/styles.less';
 
 const store = createStore(
   combineReducers({
-//    reducers,
+    reducers,
     routing: routerReducer
   }),
   applyMiddleware(
