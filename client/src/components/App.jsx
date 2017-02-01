@@ -13,7 +13,7 @@ class App extends React.Component {
     return (
       <Grid id="container">
         <HeaderContainer
-          session={this.props.session}
+          session={this.props.session.auth}
         />
         {
           React.cloneElement(this.props.children, {
@@ -27,7 +27,9 @@ class App extends React.Component {
 
 App.propTypes = {
   children: React.PropTypes.shape({}).isRequired,
-  session: React.PropTypes.shape({}).isRequired,
+  session: React.PropTypes.shape({
+    auth: React.PropTypes.shape({})
+  }).isRequired,
   getAuthenticated: React.PropTypes.func.isRequired
 };
 

@@ -9,21 +9,21 @@ import { hashHistory } from 'react-router';
 
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
+import { routerMiddleware, syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
 import reducers from './redux/reducers';
 import Root from './components/Root';
 
-//import './less/styles.less';
+import './less/styles.less';
 
+// Apply the middleware to the store
+const middleware = routerMiddleware(hashHistory);
 const store = createStore(
   combineReducers({
     reducers,
     routing: routerReducer
   }),
-  applyMiddleware(
-    thunkMiddleware
-  )
+  applyMiddleware(thunkMiddleware, middleware)
 );
 
 const history = syncHistoryWithStore(hashHistory, store);

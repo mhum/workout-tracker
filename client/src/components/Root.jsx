@@ -6,12 +6,14 @@ import { Provider } from 'react-redux';
 
 import App from './App';
 import Home from './home/Home';
+import SignIn from './session/SignIn';
 
 const Root = ({ store, history }) => (
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
+        <Route path="signin" component={SignIn} />
       </Route>
     </Router>
   </Provider>

@@ -23,5 +23,6 @@ Rails.application.routes.draw do
   end
 
   match '/api/auth',  to: 'api/sessions#check',            via: 'get'
+  match '/api/auth',  to: 'api/sessions#create',           via: 'post'
 
 end
