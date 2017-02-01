@@ -23,30 +23,29 @@ module.exports = {
     new webpack.ProvidePlugin({
       React: 'react'
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true
-    }),
+    new webpack.optimize.UglifyJsPlugin(),
     new HtmlWebpackPlugin({
       template: 'src/index.html',
       inject: 'body'
     })
   ],
   module: {
-    rules: [{
+    loaders: [{
       test: /\.jsx?$/,
-      loader: 'babel-loader'
+      loader: 'babel'
     }, {
       test: /\.less$/,
-      use: [
-        'style-loader',
-        'css-loader',
-        'less-loader'
-      ]
+      loader: 'style!css!less'
     }]
   },
   resolve: {
-    modules: [path.join(__dirname, 'src')],
-    extensions: ['.js', '.jsx']
+    root: [path.join(__dirname, 'src')],
+    extensions: ['', '.js', '.jsx']
+  },
+  assets: {
+    stats: {
+      colors: true
+    }
   },
   devServer: {
     hot: true,
