@@ -1,7 +1,9 @@
 import { MenuItem, Nav, Navbar, NavDropdown, NavItem } from 'react-bootstrap';
 import { IndexLinkContainer, LinkContainer } from 'react-router-bootstrap';
 
-const generateUserMenu = function generateUserMenu(loggedIn) {
+import { submitSignOut } from '../../redux/actions/session';
+
+const generateUserMenu = function generateUserMenu(dispatch, loggedIn) {
   if (loggedIn) {
     return (
     [
@@ -14,7 +16,7 @@ const generateUserMenu = function generateUserMenu(loggedIn) {
       <NavDropdown title="Account" id="account-dropdown" key={3}>
         <LinkContainer to={'profile'}><MenuItem >Update Profile</MenuItem></LinkContainer>
         <MenuItem divider />
-        <LinkContainer to={'signout'}><MenuItem >Sign Out</MenuItem></LinkContainer>
+        <MenuItem onClick={() => dispatch(submitSignOut())}>Sign Out</MenuItem>
       </NavDropdown>
     ]
     );
@@ -33,7 +35,7 @@ generateUserMenu.propTypes = {
   loggedIn: React.PropTypes.bool.isRequired
 };
 
-const Header = ({ session }) => (
+const Header = ({ session, dispatch }) => (
   <Navbar id="navbar">
     <Navbar.Header>
       <Navbar.Toggle />
@@ -44,7 +46,7 @@ const Header = ({ session }) => (
         <IndexLinkContainer to={'/'}>
           <NavItem>{'Home'}</NavItem>
         </IndexLinkContainer>
-        {generateUserMenu(session.loggedIn).map(component => component)}
+        {generateUserMenu(dispatch, session.loggedIn).map(component => component)}
       </Nav>
     </Navbar.Collapse>
   </Navbar>

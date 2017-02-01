@@ -4,7 +4,7 @@ import { Alert, Button, Col, ControlLabel, Form, FormControl, FormGroup,
 import { connect } from 'react-redux';
 import validate from 'validate.js';
 
-import { submitSignIn, updateSignInField, updateSignInFields } from '../../redux/actions';
+import { submitSignIn, updateSignInField, updateSignInFields } from '../../redux/actions/session';
 
 class SignIn extends React.Component {
   constructor(props) {

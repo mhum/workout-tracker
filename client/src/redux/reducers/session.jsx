@@ -1,13 +1,15 @@
 import _find from 'lodash/find';
 import _merge from 'lodash/merge';
 
-import { FETCH_AUTH, RECEIVE_AUTH, UPDATE_SIGNIN_FIELD, UPDATE_SIGNIN_FIELDS, SEND_SIGNIN, RECEIVE_SIGNIN } from '../actions';
+import { UPDATE_SIGNIN_FIELD, UPDATE_SIGNIN_FIELDS, SEND_SIGNIN,
+  SIGNIN_SUCCESS, SIGNIN_FAILURE, SEND_SINGOUT, SIGNOUT_SUCCESS } from '../actions/session';
 
 const initialState = {
   auth: {
     fetching: true,
-    loggedIn: false,
-    sessionToken: ''
+    loggedIn: localStorage.getItem('id_token') !== null,
+    auth_token: localStorage.getItem('id_token'),
+    email: null
   },
   signIn: {
     isLoading: false,
@@ -33,19 +35,6 @@ const initialState = {
 
 export default function session(state = initialState, action) {
   switch (action.type) {
-    case FETCH_AUTH:
-      return _merge({}, state, {
-        auth: {
-          fetching: true
-        }
-      });
-    case RECEIVE_AUTH:
-      return _merge({}, state, {
-        auth: {
-          loggedIn: action.response.result,
-          fetching: false
-        }
-      });
     case UPDATE_SIGNIN_FIELD: {
       const tempState = Object.assign({}, state);
       const field = _find(tempState.signIn.fields, { name: action.name });
@@ -67,35 +56,56 @@ export default function session(state = initialState, action) {
           isLoading: true
         }
       });
-    case RECEIVE_SIGNIN:
-      if (action.response.result) {
-        const tempState = Object.assign({}, state);
-        const fields = tempState.signIn.fields;
 
-        fields.forEach((field) => {
-          field.value = '';
-          field.valid = true;
-          field.errorMsg = '';
-        });
+    case SIGNIN_SUCCESS: {
+      const tempState = Object.assign({}, state);
+      const fields = tempState.signIn.fields;
 
-        return _merge({}, state, {
-          auth: {
-            loggedIn: true,
-            sessionToken: action.response.token
-          },
-          signIn: {
-            isLoading: false,
-            showSuccess: true,
-            showError: false
-          }
-        });
-      }
+      fields.forEach((field) => {
+        field.value = '';
+        field.valid = true;
+        field.errorMsg = '';
+      });
 
+      return _merge({}, state, {
+        auth: {
+          loggedIn: true,
+          auth_token: action.response.auth_token,
+          email: action.response.user.email
+        },
+        signIn: {
+          isLoading: false,
+          showSuccess: true,
+          showError: false
+        }
+      });
+    }
+
+    case SIGNIN_FAILURE:
       return _merge({}, state, {
         signIn: {
           isLoading: false,
           showError: true,
-          errorMsg: action.response.msg
+          errorMsg: action.response.errors[0]
+        }
+      });
+
+    case SEND_SINGOUT:
+      return _merge({}, state, {
+        signIn: {
+          isLoading: true
+        }
+      });
+
+    case SIGNOUT_SUCCESS:
+      return _merge({}, state, {
+        auth: {
+          loggedIn: false,
+          auth_token: null,
+          email: null
+        },
+        signIn: {
+          isLoading: false
         }
       });
     default:

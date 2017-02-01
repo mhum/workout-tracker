@@ -1,20 +1,22 @@
 class Api::SessionsController < Api::BaseController
-  include SessionsHelper
 
-  def check
-    render :json => "{\"result\": #{signed_in?}}"
+  def authenticate_user
+    user = User.find_for_database_authentication(email: params[:email])
+    if user.valid_password?(params[:password])
+      render json: payload(user)
+    else
+      render json: {errors: ['Invalid Username/Password']}, status: :unauthorized
+    end
   end
 
-  def create
-    user = User.find_by(email: params["email"].downcase)
-    if user && user.authenticate(params["password"])
-      sign_in user
+  private
 
-      remember_token = @current_user[:remember_token]
-      render :json => "{\"result\": true, \"token\":\"#{remember_token}\"}"
-    else
-      render :json => '{"result": false, "msg": "Invalid email/password combination"}'
-    end
+  def payload(user)
+    return nil unless user and user.id
+    {
+      auth_token: JsonWebToken.encode({user_id: user.id}),
+      user: {email: user.email}
+    }
   end
 
 end

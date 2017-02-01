@@ -1,14 +1,14 @@
 source 'https://rubygems.org'
 
-gem 'rails'
-gem 'sqlite3'
-gem 'jbuilder'
 gem 'bcrypt'
-gem 'autoprefixer-rails'
+gem 'devise'
+gem 'jbuilder'
+gem 'jwt'
 gem 'multi_json'
 gem 'mysql2'
-
+gem 'rails'
 gem 'responders'
+gem 'sqlite3'
 
 gem 'sdoc', group: :doc
 

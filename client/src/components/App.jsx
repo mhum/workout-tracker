@@ -2,35 +2,27 @@ import { Grid } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 import HeaderContainer from './layout/Header';
-import { getAuthenticated } from '../redux/actions';
 
-class App extends React.Component {
-  componentDidMount() {
-    this.props.getAuthenticated();
-  }
-
-  render() {
-    return (
-      <Grid id="container">
-        <HeaderContainer
-          session={this.props.session.auth}
-        />
-        {
-          React.cloneElement(this.props.children, {
-            session: this.props.session
-          })
-        }
-      </Grid>
-    );
-  }
-}
+const App = ({ dispatch, session, children }) => (
+  <Grid id="container">
+    <HeaderContainer
+      session={session.auth}
+      dispatch={dispatch}
+    />
+    {
+      React.cloneElement(children, {
+        session,
+        dispatch
+      })
+    }
+  </Grid>
+);
 
 App.propTypes = {
   children: React.PropTypes.shape({}).isRequired,
   session: React.PropTypes.shape({
     auth: React.PropTypes.shape({})
-  }).isRequired,
-  getAuthenticated: React.PropTypes.func.isRequired
+  }).isRequired
 };
 
 const mapStateToProps = state => (
@@ -39,17 +31,9 @@ const mapStateToProps = state => (
   }
 );
 
-const mapDispatchToProps = dispatch => (
-  {
-    getAuthenticated: () => {
-      dispatch(getAuthenticated());
-    }
-  }
-);
-
 const ReduxApp = connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(App);
 
 export default ReduxApp;
