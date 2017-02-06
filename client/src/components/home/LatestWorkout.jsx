@@ -1,7 +1,7 @@
 import { Button, Well } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
-import { requestCycleLatest } from '../../redux/actions/cycle';
+import { requestCycleCreate, requestCycleLatest } from '../../redux/actions/cycle';
 
 class LatestWorkout extends React.Component {
 
@@ -16,7 +16,9 @@ class LatestWorkout extends React.Component {
         {cycles.length < 1 ? (
           <Well>
             <p>{"You haven't created any cycles yet. Begin by creating one!"}</p>
-            <Button>Create First Cycle </Button>
+            <Button bsStyle="success" onClick={this.props.requestCycleCreate}>
+              Create First Cycle
+            </Button>
           </Well>
         ) : (
           <div> Here </div>
@@ -28,6 +30,7 @@ class LatestWorkout extends React.Component {
 
 LatestWorkout.propTypes = {
   requestCycleLatest: React.PropTypes.func.isRequired,
+  requestCycleCreate: React.PropTypes.func.isRequired,
   cycle: React.PropTypes.shape({
     cycles: React.PropTypes.arrayOf(React.PropTypes.shape({}))
   }).isRequired
@@ -43,6 +46,9 @@ const mapDispatchToProps = dispatch => (
   {
     requestCycleLatest: () => {
       dispatch(requestCycleLatest());
+    },
+    requestCycleCreate: () => {
+      dispatch(requestCycleCreate());
     }
   }
 );

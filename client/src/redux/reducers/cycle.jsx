@@ -17,7 +17,7 @@ export default function session(state = initialState, action) {
     }
 
     case RECEIVE_CYCLES_LATEST: {
-      const cycles = action.response;
+      const cycles = action.response.cycles;
 
       return _merge({}, state, {
         fetching: false,
