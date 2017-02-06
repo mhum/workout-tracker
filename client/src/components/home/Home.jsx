@@ -1,12 +1,15 @@
+import LatestWorkout from './LatestWorkout';
 import Welcome from './Welcome';
 
 const Home = ({ session }) => {
   const loggedIn = session.auth.loggedIn;
   return (
     <div>
-      {!loggedIn &&
+      {!loggedIn ? (
         <Welcome />
-      }
+      ) : (
+        <LatestWorkout />
+      )}
     </div>
   );
 };
