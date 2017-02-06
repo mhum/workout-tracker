@@ -20,6 +20,7 @@ const App = ({ dispatch, session, children }) => (
 
 App.propTypes = {
   children: React.PropTypes.shape({}).isRequired,
+  dispatch: React.PropTypes.func.isRequired,
   session: React.PropTypes.shape({
     auth: React.PropTypes.shape({})
   }).isRequired

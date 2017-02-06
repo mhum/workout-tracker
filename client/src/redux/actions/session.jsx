@@ -67,8 +67,8 @@ export function submitSignIn(details) {
 
 export function submitSignOut() {
   return (dispatch) => {
-    dispatch(requestSignOut())
-    localStorage.removeItem('id_token')
-    dispatch(signOutSuccess())
+    dispatch(requestSignOut());
+    localStorage.removeItem('id_token');
+    dispatch(signOutSuccess());
   };
 }

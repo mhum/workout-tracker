@@ -53,7 +53,8 @@ const Header = ({ session, dispatch }) => (
 );
 
 Header.propTypes = {
-  session: React.PropTypes.shape({}).isRequired
+  session: React.PropTypes.shape({}).isRequired,
+  dispatch: React.PropTypes.func.isRequired
 };
 
 export default Header;

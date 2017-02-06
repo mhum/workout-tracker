@@ -1,23 +1,26 @@
-import { Button, ButtonToolbar, Jumbotron } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+import Welcome from './Welcome';
 
-const Home = () => (
-  <Jumbotron>
-    <h1>Welcome to the Workout Tracker!</h1>
-    <p>Use the sign in or sign up buttons below to get started.</p>
-    <ButtonToolbar>
-      <LinkContainer to={'signup'}><Button bsStyle="primary" bsSize="large">Sign Up</Button></LinkContainer>
-      <LinkContainer to={'signin'}><Button bsStyle="primary" bsSize="large">Sign In</Button></LinkContainer>
-    </ButtonToolbar>
-  </Jumbotron>
-);
-
-Home.defaultProps = {
-
+const Home = ({ session }) => {
+  const loggedIn = session.auth.loggedIn;
+  return (
+    <div>
+      {!loggedIn &&
+        <Welcome />
+      }
+    </div>
+  );
 };
 
 Home.propTypes = {
+  session: React.PropTypes.shape({})
+};
 
+Home.defaultProps = {
+  session: {
+    auth: {
+      loggedIn: false
+    }
+  }
 };
 
 export default Home;
