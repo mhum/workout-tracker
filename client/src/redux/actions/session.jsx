@@ -1,5 +1,7 @@
 import { push } from 'react-router-redux';
 
+import requestEndpoint from '../helpers/request';
+
 export const UPDATE_SIGNIN_FIELD = 'UPDATE_SIGNIN_FIELD';
 export const UPDATE_SIGNIN_FIELDS = 'UPDATE_SIGNIN_FIELDS';
 export const SEND_SIGNIN = 'SEND_SIGNIN';
@@ -39,14 +41,7 @@ export function updateSignInFields(fields) {
 export function submitSignIn(details) {
   return (dispatch) => {
     dispatch(requestSignIn(details));
-    fetch('/api/auth', {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify(details)
-    })
+    requestEndpoint('auth', false, 'POST', JSON.stringify(details))
     .then((response) => {
       if (response.ok) {
         response.json()

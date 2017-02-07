@@ -1,8 +1,15 @@
 import _find from 'lodash/find';
 import _merge from 'lodash/merge';
 
-import { UPDATE_SIGNIN_FIELD, UPDATE_SIGNIN_FIELDS, SEND_SIGNIN,
-  SIGNIN_SUCCESS, SIGNIN_FAILURE, SEND_SINGOUT, SIGNOUT_SUCCESS } from '../actions/session';
+import {
+  UPDATE_SIGNIN_FIELD,
+  UPDATE_SIGNIN_FIELDS,
+  SEND_SIGNIN,
+  SIGNIN_SUCCESS,
+  SIGNIN_FAILURE,
+  SEND_SINGOUT,
+  SIGNOUT_SUCCESS
+} from '../actions/session';
 
 const initialState = {
   auth: {

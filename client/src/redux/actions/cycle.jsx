@@ -1,3 +1,5 @@
+import requestEndpoint from '../helpers/request';
+
 export const SEND_CYCLES_LATEST = 'SEND_CYCLES_LATEST';
 export const RECEIVE_CYCLES_LATEST = 'RECEIVE_CYCLES_LATEST';
 export const SEND_CYCLE_CREATE = 'SEND_CYCLE_CREATE';
@@ -20,16 +22,10 @@ function receiveCycleCreate(response) {
 }
 
 export function requestCycleLatest() {
-  const token = localStorage.getItem('id_token') || null;
   return (dispatch) => {
     dispatch(sendCycleLatest());
-    fetch('/api/cycles/latest', {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      }
-    })
+
+    requestEndpoint('cycles/latest')
     .then((response) => {
       if (response.ok) {
         response.json()
@@ -42,17 +38,10 @@ export function requestCycleLatest() {
 }
 
 export function requestCycleCreate() {
-  const token = localStorage.getItem('id_token') || null;
   return (dispatch) => {
     dispatch(sendCycleCreate());
-    fetch('/api/cycles', {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      method: 'POST'
-    })
+
+    requestEndpoint('cycles', true, 'POST')
     .then((response) => {
       if (response.ok) {
         response.json()

@@ -1,13 +1,16 @@
 import _merge from 'lodash/merge';
 
-import { SEND_CYCLES_LATEST, RECEIVE_CYCLES_LATEST } from '../actions/cycle';
+import {
+  SEND_CYCLES_LATEST,
+  RECEIVE_CYCLES_LATEST
+} from '../actions/cycle';
 
 const initialState = {
   fetching: false,
   cycles: []
 };
 
-export default function session(state = initialState, action) {
+export default function cycle(state = initialState, action) {
   switch (action.type) {
 
     case SEND_CYCLES_LATEST: {
