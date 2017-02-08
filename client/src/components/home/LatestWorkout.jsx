@@ -1,7 +1,35 @@
+import _maxBy from 'lodash/maxBy';
+import _values from 'lodash/values';
+import _isEmpty from 'lodash/isEmpty';
+
 import { Button, Well } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
+import LiftPanel from '../entities/LiftPanel';
+
 import { requestCycleCreate, requestCycleLatest } from '../../redux/actions/cycle';
+
+// def get_current_lift
+//   last_cycle = current_user.cycles.last
+//   workout_counter = 0
+//   lift_counter = 0
+//   if (last_cycle)
+//     while lift_counter < 4 do
+//       workout_counter = 0
+//       last_cycle.workouts.each do |workout|
+//         reps_completed = workout.lifts[lift_counter].reps_completed
+//         if (!reps_completed)
+//           return workout.lifts[lift_counter]
+//         end
+//         workout_counter = workout_counter + 1
+//         if (workout_counter == 4)
+//           lift_counter = lift_counter + 1
+//         end
+//       end
+//     end
+//     return nil
+//   end
+// end
 
 class LatestWorkout extends React.Component {
 
@@ -9,20 +37,57 @@ class LatestWorkout extends React.Component {
     this.props.requestCycleLatest();
   }
 
+  getNextLift() {
+    const cycles = this.props.entities.cycles;
+    const workouts = this.props.entities.workouts;
+    const lifts = this.props.entities.lifts;
+
+    const lastCycle = _maxBy(_values(cycles), 'id');
+    if (!lastCycle || Object.keys(workouts).length < 1 || Object.keys(lifts).length < 1) {
+      return {};
+    }
+
+    let lift;
+    let liftCounter = 0;
+    while (liftCounter < 4 && !lift) {
+      for (let i = 0; i < lastCycle.workouts.length; i += 1) {
+        const w = lastCycle.workouts[i];
+        const liftId = workouts[w].lifts[liftCounter];
+        const reps = lifts[liftId].reps_completed;
+
+        if (!reps) {
+          lift = lifts[liftId];
+          break;
+        }
+      }
+      liftCounter += 1;
+    }
+
+    return lift;
+  }
+
   render() {
-    const cycles = this.props.cycle.cycles;
+    const cycles = this.props.entities.cycles;
+    const numCycles = Object.keys(cycles).length;
+    let nextLift;
+    if (numCycles > 0) {
+      nextLift = this.getNextLift();
+    }
+
     return (
       <div>
-        {cycles.length < 1 ? (
+        {numCycles < 1 &&
           <Well>
             <p>{"You haven't created any cycles yet. Begin by creating one!"}</p>
             <Button bsStyle="success" onClick={this.props.requestCycleCreate}>
               Create First Cycle
             </Button>
           </Well>
-        ) : (
-          <div> Here </div>
-        )}
+        }
+
+        {!_isEmpty(nextLift) &&
+          <LiftPanel lift={nextLift} />
+        }
       </div>
     );
   }
@@ -31,14 +96,16 @@ class LatestWorkout extends React.Component {
 LatestWorkout.propTypes = {
   requestCycleLatest: React.PropTypes.func.isRequired,
   requestCycleCreate: React.PropTypes.func.isRequired,
-  cycle: React.PropTypes.shape({
-    cycles: React.PropTypes.arrayOf(React.PropTypes.shape({}))
+  entities: React.PropTypes.shape({
+    cycles: React.PropTypes.shape({}),
+    lifts: React.PropTypes.shape({}),
+    workouts: React.PropTypes.shape({})
   }).isRequired
 };
 
 const mapStateToProps = state => (
   {
-    cycle: state.reducers.cycle
+    entities: state.reducers.entities
   }
 );
 
