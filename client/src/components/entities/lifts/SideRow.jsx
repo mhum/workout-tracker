@@ -8,18 +8,24 @@ const eachWeight = (repMax, percent, calculateWeight) => {
   return calculatedWeight;
 };
 
-const SideRow = ({ workout, workoutLift, calculateWeight }) => {
+const SideRow = ({ workout, workoutLift, calculateWeight, cellColor }) => {
   const repMax = workout.repmax;
 
   return (
     <tr>
       <td />
-      <td>{eachWeight(repMax, workoutLift.wu1_offset, calculateWeight)}</td>
-      <td>{eachWeight(repMax, workoutLift.wu2_offset, calculateWeight)}</td>
-      <td>{eachWeight(repMax, workoutLift.wu3_offset, calculateWeight)}</td>
-      <td>{eachWeight(repMax, workoutLift.l1_offset, calculateWeight)}</td>
-      <td>{eachWeight(repMax, workoutLift.l2_offset, calculateWeight)}</td>
-      <td>{eachWeight(repMax, workoutLift.l3_offset, calculateWeight)}</td>
+      <td className="info">{eachWeight(repMax, workoutLift.wu1_offset, calculateWeight)}</td>
+      <td className="info">{eachWeight(repMax, workoutLift.wu2_offset, calculateWeight)}</td>
+      <td className="info">{eachWeight(repMax, workoutLift.wu3_offset, calculateWeight)}</td>
+      <td className={cellColor(workoutLift.l1_reps)}>
+        {eachWeight(repMax, workoutLift.l1_offset, calculateWeight)}
+      </td>
+      <td className={cellColor(workoutLift.l2_reps)}>
+        {eachWeight(repMax, workoutLift.l2_offset, calculateWeight)}
+      </td>
+      <td className={cellColor(workoutLift.l3_reps)}>
+        {eachWeight(repMax, workoutLift.l3_offset, calculateWeight)}
+      </td>
       <td />
       <td />
     </tr>
@@ -29,7 +35,8 @@ const SideRow = ({ workout, workoutLift, calculateWeight }) => {
 SideRow.propTypes = {
   workout: React.PropTypes.shape({}).isRequired,
   workoutLift: React.PropTypes.shape({}).isRequired,
-  calculateWeight: React.PropTypes.func.isRequired
+  calculateWeight: React.PropTypes.func.isRequired,
+  cellColor: React.PropTypes.func.isRequired
 };
 
 export default SideRow;

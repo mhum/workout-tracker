@@ -12,6 +12,18 @@ const calculateWeight = (repMax, percent) => {
   return 0;
 };
 
+const cellColor = (reps) => {
+  if (reps === 5) {
+    return 'success';
+  } else if (reps === 3) {
+    return 'warning';
+  } else if (reps === 1) {
+    return 'danger';
+  }
+
+  return '';
+};
+
 const Lift = ({ lift, entities }) => {
   const workout = entities.workouts[lift.workout_id];
   const workoutLift = entities.workoutLifts[lift.workout_lift_id];
@@ -23,8 +35,14 @@ const Lift = ({ lift, entities }) => {
         workout={workout}
         workoutLift={workoutLift}
         calculateWeight={calculateWeight}
+        cellColor={cellColor}
       />
-      <SideRow workout={workout} workoutLift={workoutLift} calculateWeight={calculateWeight} />
+      <SideRow
+        workout={workout}
+        workoutLift={workoutLift}
+        calculateWeight={calculateWeight}
+        cellColor={cellColor}
+      />
     </tbody>
   );
 };
