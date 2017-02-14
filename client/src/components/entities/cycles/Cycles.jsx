@@ -13,17 +13,19 @@ const getCells = (entities, cycleWorkouts) => {
 
   cycleWorkouts.forEach((w) => {
     const workout = workouts[w];
-    const maxLift = lifts[workout.lifts[workout.lifts.length - 2]];
-    const maxWorkoutLift = workoutLifts[maxLift.workout_lift_id];
+    if (workout) {
+      const maxLift = lifts[workout.lifts[workout.lifts.length - 2]];
+      const maxWorkoutLift = workoutLifts[maxLift.workout_lift_id];
 
-    const workoutType = workoutTypes[workout.workout_type_id];
-    const maxWeight = calculateLiftAmount(workout.repmax, maxWorkoutLift.l3_offset);
-    const maxReps = maxLift.reps_completed ? maxLift.reps_completed : 0;
+      const workoutType = workoutTypes[workout.workout_type_id];
+      const maxWeight = calculateLiftAmount(workout.repmax, maxWorkoutLift.l3_offset);
+      const maxReps = maxLift.reps_completed ? maxLift.reps_completed : 0;
 
-    cells.push(<td key={workoutType.title}>{workoutType.title}</td>);
-    cells.push(<td key={`${workoutType.title}-max`}>{maxWeight}</td>);
-    cells.push(<td key={`${workoutType.title}-reps`}>{maxReps}</td>);
-    cells.push(<td key={`${workoutType.title}-orm`}>{workout.repmax}</td>);
+      cells.push(<td key={workoutType.title}>{workoutType.title}</td>);
+      cells.push(<td key={`${workoutType.title}-max`}>{maxWeight}</td>);
+      cells.push(<td key={`${workoutType.title}-reps`}>{maxReps}</td>);
+      cells.push(<td key={`${workoutType.title}-orm`}>{workout.repmax}</td>);
+    }
   });
 
   return cells;
@@ -38,13 +40,6 @@ class Cycles extends React.Component {
   render() {
     const entities = this.props.entities;
     const cycles = entities.cycles;
-
-    if (Object.keys(entities.workouts).length < 1 ||
-        Object.keys(entities.cycles).length < 1 ||
-        Object.keys(entities.lifts).length < 1
-    ) {
-      return <div />;
-    }
 
     return (
       <Table responsive>
