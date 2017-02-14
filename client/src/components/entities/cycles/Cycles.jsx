@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { Table } from 'react-bootstrap';
 
 import { calculateLiftAmount } from '../../utils/Weights';
+import { requestCycles } from '../../../redux/actions/cycle';
 
 const getCells = (entities, cycleWorkouts) => {
   const cells = [];
@@ -28,54 +29,72 @@ const getCells = (entities, cycleWorkouts) => {
   return cells;
 };
 
-const Cycles = ({ entities }) => {
-  const cycles = entities.cycles;
+class Cycles extends React.Component {
 
-  return (
-    <Table responsive>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Workout</th>
-          <th>Max</th>
-          <th>Max Reps</th>
-          <th>ORM</th>
-          <th>Workout</th>
-          <th>Max</th>
-          <th>Max Reps</th>
-          <th>ORM</th>
-          <th>Workout</th>
-          <th>Max</th>
-          <th>Max Reps</th>
-          <th>ORM</th>
-          <th>Workout</th>
-          <th>Max</th>
-          <th>Max Reps</th>
-          <th>ORM</th>
-        </tr>
-      </thead>
-      <tbody>
-        {
-          Object.keys(cycles).length > 0 && Object.keys(cycles).map((key) => {
-            const cycle = cycles[key];
-            const cycleWorkouts = cycle.workouts;
-            return (
-              <tr key={cycle.id}>
-                <td>{cycle.number}</td>
-                {
-                  getCells(entities, cycleWorkouts).map(c => c)
-                }
-              </tr>
-            );
-          })
-        }
-      </tbody>
-    </Table>
-  );
-};
+  componentDidMount() {
+    this.props.requestCycles();
+  }
+
+  render() {
+    const entities = this.props.entities;
+    const cycles = entities.cycles;
+
+    if (Object.keys(entities.workouts).length < 1 ||
+        Object.keys(entities.cycles).length < 1 ||
+        Object.keys(entities.lifts).length < 1
+    ) {
+      return <div />;
+    }
+
+    return (
+      <Table responsive>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Workout</th>
+            <th>Max</th>
+            <th>Max Reps</th>
+            <th>ORM</th>
+            <th>Workout</th>
+            <th>Max</th>
+            <th>Max Reps</th>
+            <th>ORM</th>
+            <th>Workout</th>
+            <th>Max</th>
+            <th>Max Reps</th>
+            <th>ORM</th>
+            <th>Workout</th>
+            <th>Max</th>
+            <th>Max Reps</th>
+            <th>ORM</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            Object.keys(cycles).length > 0 && Object.keys(cycles).map((key) => {
+              const cycle = cycles[key];
+              const cycleWorkouts = cycle.workouts;
+              return (
+                <tr key={cycle.id}>
+                  <td>{cycle.number}</td>
+                  {
+                    getCells(entities, cycleWorkouts).map(c => c)
+                  }
+                </tr>
+              );
+            })
+          }
+        </tbody>
+      </Table>
+    );
+  }
+}
 
 Cycles.propTypes = {
-  entities: React.PropTypes.shape({}).isRequired
+  entities: React.PropTypes.shape({
+    cycles: React.PropTypes.shape({})
+  }).isRequired,
+  requestCycles: React.PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => (
@@ -84,4 +103,12 @@ const mapStateToProps = state => (
   }
 );
 
-export default connect(mapStateToProps, null)(Cycles);
+const mapDispatchToProps = dispatch => (
+  {
+    requestCycles: () => {
+      dispatch(requestCycles());
+    }
+  }
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cycles);

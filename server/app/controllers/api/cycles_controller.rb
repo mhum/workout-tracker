@@ -1,6 +1,11 @@
 class Api::CyclesController < Api::BaseController
   before_action :authenticate_request!
 
+  def index
+    cycles = @current_user.cycles
+    render json: payload(cycles)
+  end
+
   def latest
     cycle = @current_user.cycles.last
     render json: payload([cycle])
@@ -51,7 +56,6 @@ class Api::CyclesController < Api::BaseController
   private
 
     def payload(cycles)
-      cycles = cycles ? cycles : []
       {
         cycles: cycles
       }

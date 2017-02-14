@@ -7,19 +7,9 @@ import { setWorkouts } from '../actions/workout';
 import { setWorkoutLifts } from '../actions/workoutLift';
 import { setWorkoutTypes } from '../actions/workoutType';
 
-export const SEND_CYCLES_LATEST = 'SEND_CYCLES_LATEST';
-export const RECEIVE_CYCLES_LATEST = 'RECEIVE_CYCLES_LATEST';
 export const SEND_CYCLE_CREATE = 'SEND_CYCLE_CREATE';
 export const RECEIVE_CYCLE_CREATE = 'RECEIVE_CYCLE_CREATE';
 export const SET_CYCLES = 'SET_CYCLES';
-
-function sendCycleLatest() {
-  return { type: SEND_CYCLES_LATEST };
-}
-
-function receiveCycleLatest() {
-  return { type: RECEIVE_CYCLES_LATEST };
-}
 
 function sendCycleCreate() {
   return { type: SEND_CYCLE_CREATE };
@@ -33,22 +23,38 @@ function setCycles(response) {
   return { type: SET_CYCLES, response };
 }
 
+function updateEntities(dispatch, entities) {
+  dispatch(setCycles(entities.cycles));
+  dispatch(setLifts(entities.lifts));
+  dispatch(setWorkoutTypes(entities.workoutTypes));
+  dispatch(setWorkoutLifts(entities.workoutLifts));
+  dispatch(setWorkouts(entities.workouts));
+}
+
+export function requestCycles() {
+  return (dispatch) => {
+    requestEndpoint('cycles')
+    .then((response) => {
+      if (response.ok) {
+        response.json()
+        .then((json) => {
+          const normalizedData = normalize(json.cycles, cycleListSchema);
+          updateEntities(dispatch, normalizedData.entities);
+        });
+      }
+    });
+  };
+}
+
 export function requestCycleLatest() {
   return (dispatch) => {
-    //dispatch(sendCycleLatest());
-
     requestEndpoint('cycles/latest')
     .then((response) => {
       if (response.ok) {
         response.json()
         .then((json) => {
           const normalizedData = normalize(json.cycles, cycleListSchema);
-          //dispatch(receiveCycleLatest());
-          dispatch(setCycles(normalizedData.entities.cycles));
-          dispatch(setLifts(normalizedData.entities.lifts));
-          dispatch(setWorkoutTypes(normalizedData.entities.workoutTypes));
-          dispatch(setWorkoutLifts(normalizedData.entities.workoutLifts));
-          dispatch(setWorkouts(normalizedData.entities.workouts));
+          updateEntities(dispatch, normalizedData.entities);
         });
       }
     });
