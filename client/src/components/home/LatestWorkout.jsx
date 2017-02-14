@@ -5,31 +5,9 @@ import _isEmpty from 'lodash/isEmpty';
 import { Button, Well } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
-import LiftPanel from '../entities/LiftPanel';
+import LiftPanel from '../entities/lifts/LiftPanel';
 
 import { requestCycleCreate, requestCycleLatest } from '../../redux/actions/cycle';
-
-// def get_current_lift
-//   last_cycle = current_user.cycles.last
-//   workout_counter = 0
-//   lift_counter = 0
-//   if (last_cycle)
-//     while lift_counter < 4 do
-//       workout_counter = 0
-//       last_cycle.workouts.each do |workout|
-//         reps_completed = workout.lifts[lift_counter].reps_completed
-//         if (!reps_completed)
-//           return workout.lifts[lift_counter]
-//         end
-//         workout_counter = workout_counter + 1
-//         if (workout_counter == 4)
-//           lift_counter = lift_counter + 1
-//         end
-//       end
-//     end
-//     return nil
-//   end
-// end
 
 class LatestWorkout extends React.Component {
 

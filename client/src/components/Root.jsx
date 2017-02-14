@@ -5,6 +5,7 @@ import { Router, Route, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
 
 import App from './App';
+import Cycles from './entities/cycles/Cycles';
 import Home from './home/Home';
 import SignIn from './session/SignIn';
 
@@ -13,6 +14,7 @@ const Root = ({ store, history }) => (
     <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
+        <Route path="cycles" component={Cycles} />
         <Route path="signin" component={SignIn} />
       </Route>
     </Router>

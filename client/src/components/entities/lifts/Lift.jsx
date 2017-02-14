@@ -1,16 +1,7 @@
 import { connect } from 'react-redux';
 
-import TotalRow from './lifts/TotalRow';
-import SideRow from './lifts/SideRow';
-
-const calculateWeight = (repMax, percent) => {
-  const workingMax = Math.round((repMax * 0.9) / 5) * 5;
-
-  if (percent) {
-    return Math.round((workingMax * percent) / 5) * 5;
-  }
-  return 0;
-};
+import TotalRow from './TotalRow';
+import SideRow from './SideRow';
 
 const cellColor = (reps) => {
   if (reps === 5) {
@@ -34,13 +25,11 @@ const Lift = ({ lift, entities }) => {
         lift={lift}
         workout={workout}
         workoutLift={workoutLift}
-        calculateWeight={calculateWeight}
         cellColor={cellColor}
       />
       <SideRow
         workout={workout}
         workoutLift={workoutLift}
-        calculateWeight={calculateWeight}
         cellColor={cellColor}
       />
     </tbody>
